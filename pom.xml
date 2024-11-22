@@ -29,6 +29,7 @@
 	</scm>
 
 	<modules>
+		<module>app-domain</module>
 		<module>app-entity</module>
 	</modules>
 
@@ -38,6 +39,7 @@
 
 		<!-- dependency management properties -->
 		<spring-boot-starter.version>3.3.3</spring-boot-starter.version>
+		<javamoney-moneta.version>1.4.4</javamoney-moneta.version>
 
 		<!-- maven core plugin version properties -->
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -45,7 +47,7 @@
 		<versions-maven-plugin.version>2.17.1</versions-maven-plugin.version>
 
 		<!-- spring boot related plugin version properties -->
-		<spring-boot-maven-plugin.version>3.3.3</spring-boot-maven-plugin.version>
+		<spring-boot-maven-plugin.version>3.4.0</spring-boot-maven-plugin.version>
 		<hibernate-enhance-maven-plugin.version>6.6.0.Final</hibernate-enhance-maven-plugin.version>
 		<native-graalvm-maven-plugin.version>0.10.3</native-graalvm-maven-plugin.version>
 
@@ -68,6 +70,11 @@
 				<version>${spring-boot-starter.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+    			<groupId>org.javamoney</groupId>
+    			<artifactId>moneta</artifactId>
+    			<version>${javamoney-moneta.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
