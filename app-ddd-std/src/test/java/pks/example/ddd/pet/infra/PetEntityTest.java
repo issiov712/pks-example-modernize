@@ -10,8 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pks.example.ddd.pet.core.Pet;
 import pks.example.ddd.pet.infra.entity.PetEntity;
@@ -19,6 +24,9 @@ import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
 import pks.example.ddd.pet.ports.outbound.PetStorage;
 
 // @SpringBootTest
+// @DataJpaTest
+// @AutoConfigureTestDatabase(replace = Replace.NONE)
+// @Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class PetEntityTest {
 
     Logger log_tst = LoggerFactory.getLogger(PetMappingTest.class);
