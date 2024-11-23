@@ -29,6 +29,7 @@
 	</scm>
 
 	<modules>
+		<module>app-ddd-std</module>
 		<module>app-domain</module>
 		<module>app-entity</module>
 	</modules>
