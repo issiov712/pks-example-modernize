@@ -1,35 +1,16 @@
 package pks.example.ddd.pet.infra.entity;
 
-import java.util.Optional;
-
-import org.springframework.data.repository.Repository;
-import org.springframework.stereotype.Component;
-
-import pks.example.ddd.pet.core.Pet;
-import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
-import pks.example.ddd.pet.ports.outbound.PetStorage;
-
-import java.util.ArrayList;
 import java.util.List;
+// import java.util.Optional;
 
-public interface PetEntityRepository extends Repository<PetEntity, Long>, PetStorage {
+import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.lang.NonNull;
+
+public interface PetEntityRepository extends JpaRepository<PetEntity, Long> {
     
-    PetEntity save(PetEntity petEntity);
+    // @NonNull public PetEntity save(@NonNull PetEntity petEntity);
 
-    default public void store(Pet pet) {
-        // TODO: Need to lookup the Pet first in case it already exits....  id != null || findByNatualKey() ??
-        PetEntity petEntity = PetEntityMapper.INSTANCE.petToPetEntity(pet);
-        this.save(petEntity);
-    }
-
-    Optional<PetEntity> findById(Long id);
-
-    default public Optional<Pet> retreiveById(Long id) {
-        return null;
-    }
+    // @NonNull public Optional<PetEntity> findById(@NonNull Long id);
 
     List<PetEntity> findByName(String name);
-
-    default public List<Pet> retrieveByName(String name) {
-        return new ArrayList<Pet>();
-    }
+}

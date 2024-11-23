@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,29 +21,29 @@ import pks.example.ddd.pet.infra.entity.PetEntity;
 import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
 import pks.example.ddd.pet.ports.outbound.PetStorage;
 
-// @SpringBootTest
-// @DataJpaTest
-// @AutoConfigureTestDatabase(replace = Replace.NONE)
-// @Transactional(propagation = Propagation.NOT_SUPPORTED)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class PetEntityTest {
 
-    Logger log_tst = LoggerFactory.getLogger(PetMappingTest.class);
+    private static Logger log_tst = LoggerFactory.getLogger(PetMappingTest.class);
 
+    // @Configuration
     // static class ContextConfiguration {
 
-    //     @Bean
-    //     public TestPetStorageService testPetStorageService() {
-    //         TestPetStorageService testPetStorageService = new PetEntityRepository();
-    //         return testPetStorageService;
-    //         };
-    //     }
+    //     // @Bean
+    //     // public TestPetStorageService testPetStorageService() {
+    //     //     TestPetStorageService testPetStorageService = new PetEntityRepository();
+    //     //     return testPetStorageService;
+    //     //     };
+    //     // }
     // }
 
 
-    // @Autowired
-    // PetStorage petStorage;
+    @Autowired
+    PetStorage petStorage;
 
-    @SuppressWarnings("deprecation")
+    // @SuppressWarnings("deprecation")
     @Test
     public void validatingSpringJpaRepository() {
 
@@ -76,16 +74,17 @@ public class PetEntityTest {
 
         assertEquals(PET_NAMES[0], p.getName());
 
-        // petStorage.store(p);
+        p.setId(null);
+        petStorage.store(p);
 
-        // for (String name : PET_NAMES) {
-        //     p.setName(name);
-        //     petStorage.store(p);
-        //     List<Pet> pets = petStorage.retrieveByName(name);
-        //     for (Pet px : pets) {
-        //         assertEquals(name, px.getName());
-        //     }
-        // }
+        for (String name : PET_NAMES) {
+            p.setName(name);
+            petStorage.store(p);
+            List<Pet> pets = petStorage.retrieveByName(name);
+            for (Pet px : pets) {
+                assertEquals(name, px.getName());
+            }
+        }
 
         log_tst.info("test complete");
     }

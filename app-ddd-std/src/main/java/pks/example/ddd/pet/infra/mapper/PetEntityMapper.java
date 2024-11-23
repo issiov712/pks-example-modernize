@@ -36,9 +36,11 @@ public interface PetEntityMapper {
      * @param pet
      * @return
      * 
-     * @deprecated Use {@link pks.example.ddd.pet.infra.mapper.PetEntityMapper#updatePetEntityFromPet(Pet, PetEntity)} instead as you should always look for the entity before creating a new one.
+     * deprecated Use {@link pks.example.ddd.pet.infra.mapper.PetEntityMapper#updatePetEntityFromPet(Pet, PetEntity)} instead as you should always look for the entity before creating a new one.
      */
+    // @Deprecated
     PetEntity petToPetEntity(Pet pet);
+
     /**
      * Creates a new {@link pks.example.ddd.pet.core.Pet} from the corresponding entity.
      * 

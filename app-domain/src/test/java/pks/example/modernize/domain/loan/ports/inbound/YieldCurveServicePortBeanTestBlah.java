@@ -2,10 +2,10 @@ package pks.example.modernize.domain.loan.ports.inbound;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.wavefront.WavefrontProperties.Application;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.actuate.autoconfigure.wavefront.WavefrontProperties.Application;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.Date;
 import java.util.Optional;

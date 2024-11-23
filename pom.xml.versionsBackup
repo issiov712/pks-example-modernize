@@ -36,31 +36,31 @@
 
 	<properties>
 		<revision>999-SNAPSHOT</revision>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<!-- dependency management properties -->
-		<spring-boot-starter.version>3.4.0</spring-boot-starter.version>
+		<spring-boot-starter.version>3.3.3</spring-boot-starter.version>
 		<org-mapstruct.version>1.6.3</org-mapstruct.version>
 		<org-projectlombok.version>1.18.36</org-projectlombok.version>
 		<javamoney-moneta.version>1.4.4</javamoney-moneta.version>
 
 		<!-- maven core plugin version properties -->
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-		<versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
+		<maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+		<versions-maven-plugin.version>2.17.1</versions-maven-plugin.version>
 
 		<!-- spring boot related plugin version properties -->
 		<spring-boot-maven-plugin.version>3.4.0</spring-boot-maven-plugin.version>
-		<hibernate-enhance-maven-plugin.version>6.6.3.Final</hibernate-enhance-maven-plugin.version>
+		<hibernate-enhance-maven-plugin.version>6.6.0.Final</hibernate-enhance-maven-plugin.version>
 		<native-graalvm-maven-plugin.version>0.10.3</native-graalvm-maven-plugin.version>
 
 		<!-- additional maven plugin version properties -->
-		<liquibase-maven-plugin.version>4.30.0</liquibase-maven-plugin.version>
+		<liquibase-maven-plugin.version>4.29.2</liquibase-maven-plugin.version>
 		<dependency-check-maven.version>10.0.4</dependency-check-maven.version>
-		<docker-maven-plugin.version>0.45.1</docker-maven-plugin.version>
+		<docker-maven-plugin.version>0.45.0</docker-maven-plugin.version>
 
 		<postgresql-server.port>5543</postgresql-server.port>
 		<keycloak-server-http.port>7070</keycloak-server-http.port>

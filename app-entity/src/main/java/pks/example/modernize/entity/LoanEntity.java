@@ -1,14 +1,14 @@
 package pks.example.modernize.entity;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+// import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+// import jakarta.persistence.Temporal;
+// import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
