@@ -1,5 +1,5 @@
 package pks.example.ddd.pet.core;
 
-public class PetAggregate {
+public class PetTest {
 
 }

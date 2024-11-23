@@ -8,20 +8,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.Date;
+import java.util.Optional;
 
-@SpringBootTest(classes = Application.class)
-@ComponentScan("pks.example")
+// @SpringBootTest(classes = Application.class)
+// @ComponentScan("pks.example")
 public class YieldCurveServicePortBeanTestBlah {
-    private final YieldCurveTestService yieldCurveService;
+    private final YieldCurveTestService yieldCurveService = new YieldCurveTestService();
 
-    @Autowired
-    YieldCurveServicePortBeanTestBlah(YieldCurveTestService yieldCurveService) {
-        this.yieldCurveService = yieldCurveService;
-    }
+    // @Autowired
+    // YieldCurveServicePortBeanTestBlah(YieldCurveTestService yieldCurveService) {
+    //     this.yieldCurveService = yieldCurveService;
+    // }
 
     @Test
     void checkYieldCurve() {
-        Double rate = yieldCurveService.getYieldCurveEntry(Date.valueOf("2024-11-21"),Date.valueOf("2024-12-21"));
-        assertEquals(2.25,rate);
+        Optional<Double> rate = yieldCurveService.getYieldCurveEntry(Date.valueOf("2024-11-21"),Date.valueOf("2024-12-21"));
+        assertEquals(2.25,rate.get());
     }
 }
