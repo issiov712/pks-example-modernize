@@ -22,7 +22,6 @@ import pks.example.ddd.pet.infra.entity.PetEntity;
     {@link pks.example.ddd.pet.core.Pet} to/from {@link pks.example.ddd.pet.infra.entity.PetEntity}
 
     @author Peter Shiner
-
     @since 0.1
     """
 )
@@ -52,6 +51,27 @@ public interface PetEntityMapper {
     void updatePetFromPetEntity(PetEntity petEntity, @MappingTarget Pet pet);
     void updatePetEntityFromPet(Pet pet, @MappingTarget PetEntity petEntity);
 
-    default BigDecimal map(Money money) { return money.getNumberStripped(); }
-    default Money map(BigDecimal bigDecimal) { return Money.of(bigDecimal, "USD"); }
+    /**
+     * <p>Simple coversion between equivilent types not covered by MapStruct by default.</p>
+     * 
+     * <p>Assumption is that money is always in "USD."</p>
+     * 
+     * <p>Note that null values are silently converted to zero ('0').</p>
+     * 
+     * @param money The money amount as a Money type.
+     * @return The amount of money in a database friendly BigDecimal type.
+     */
+    default BigDecimal map(Money money) { return money == null ? Money.of(Double.valueOf(0.00), "USD").getNumberStripped() : money.getNumberStripped(); }
+
+    /**
+     * <p>Simple coversion between equivilent types not covered by MapStruct by default.</p>
+     * 
+     * <p>Assumption is that money is always in "USD."</p>
+     * 
+     * <p>Note that null values are silently converted to zero ('0').</p>
+     * 
+     * @param bigDecimal The amount of money in a database friendly BigDecimal type.
+     * @return The money amount as a Money type.
+     */
+    default Money map(BigDecimal bigDecimal) { return bigDecimal == null ? Money.of(0.00,"USD") : Money.of(bigDecimal, "USD"); }
 }

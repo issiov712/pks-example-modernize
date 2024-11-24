@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,8 @@ public class PetEntityTest {
         e.setId(Long.valueOf(7l));
         e.setValue(BigDecimal.valueOf(125.45d));
 
+        assertNotNull(PetEntityMapper.INSTANCE);
+
         Pet p = PetEntityMapper.INSTANCE.petEntitytoPet(e);
 
         assertNotNull(p);
@@ -74,6 +78,8 @@ public class PetEntityTest {
 
         assertEquals(PET_NAMES[0], p.getName());
 
+        log_tst.info("storing a single pet and changing its name");
+
         p.setId(null);
         petStorage.store(p);
 
@@ -84,6 +90,31 @@ public class PetEntityTest {
             for (Pet px : pets) {
                 assertEquals(name, px.getName());
             }
+        }
+
+        log_tst.info("creating a few pets");
+
+        for (String name : PET_NAMES) {
+            p = Pet.builder()
+                .name(name)
+                .age(Double.valueOf((double)name.length()))
+                .birthday(new Date(System.currentTimeMillis()))
+                .build();
+            petStorage.store(p);
+        }
+
+        log_tst.info("catch a bad pet");
+
+        /*
+         * trying to throw expection when an invalid attempt to create a Pet occurs ( name == null )
+         * probably need to use a factory, but trying with a builder method as well, but lombok not cooperating
+         */
+        try {
+            p = Pet.builder()
+                   .value(Money.of(Double.valueOf(234.42), "USD"))
+                   .build();
+        } catch (RuntimeException ex) {
+            log_tst.info(ex.getMessage());
         }
 
         log_tst.info("test complete");
