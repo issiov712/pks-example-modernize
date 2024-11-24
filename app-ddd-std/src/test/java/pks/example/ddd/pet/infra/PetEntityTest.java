@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+// import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+// import pks.example.ddd.main.StandardDomainApplication;
 import pks.example.ddd.pet.core.Pet;
 import pks.example.ddd.pet.infra.entity.PetEntity;
 import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
@@ -26,6 +28,7 @@ import pks.example.ddd.pet.ports.outbound.PetStorage;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
+// @ContextConfiguration(classes = StandardDomainApplication.class)
 public class PetEntityTest {
 
     private static Logger log_tst = LoggerFactory.getLogger(PetMappingTest.class);

@@ -1,4 +1,4 @@
-package pks.example.ddd.main;
+package pks.example.ddd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
