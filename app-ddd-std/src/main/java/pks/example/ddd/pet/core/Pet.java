@@ -22,6 +22,11 @@ public class Pet {
      * but no luck so far.  likely need a factory.
      */
 
+    public static Pet newPet(String name, Double age, Money value, Date birthday) {
+        return Pet.builder()
+                    .name(name)
+                    .build();
+    }
 
     // public Pet build() {
     //     // if (name == null || name.length() == 0) { throw new RuntimeException("Cannot create a pet without a name."); }
