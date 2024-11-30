@@ -90,7 +90,7 @@ public class SecantSolver {
      * @return The calculated {@link SecantPoint} which is the solution to a root of the equation.
      */
     public SecantPoint solve(SecantFunction function) {
-        return this.solve(function,1.0d, 2.0d);
+        return this.solve(function,1.0d,2.0d);
     }
 
     /**
