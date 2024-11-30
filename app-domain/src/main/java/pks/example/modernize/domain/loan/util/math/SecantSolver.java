@@ -3,6 +3,9 @@ package pks.example.modernize.domain.loan.util.math;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +16,9 @@ import lombok.Setter;
  * @since 0.1
  */
 public class SecantSolver {
+
+    Logger log_msg = LoggerFactory.getLogger(SecantSolver.class);
+
     /**
      * The default epsilon value in stopping the iterations.
      */
@@ -62,7 +68,7 @@ public class SecantSolver {
                 b = new SecantPoint(cx,function.calculate(cx));
                 points.add(b);
             } catch (RuntimeException ex) {
-                // log message
+                log_msg.warn(ex.getMessage());
                 solved = false;
             }
         }
