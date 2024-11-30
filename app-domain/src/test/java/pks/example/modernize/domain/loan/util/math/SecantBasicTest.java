@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 
 public class SecantBasicTest {
-    Logger tst_log = LoggerFactory.getLogger(SecantBasicTest.class);
+    Logger log_tst = LoggerFactory.getLogger(SecantBasicTest.class);
 
     interface TestSecantFunction extends SecantFunction {
         public Double useEpsilon();
@@ -30,14 +30,14 @@ public class SecantBasicTest {
             SecantPoint solution = solve(function);
             SecantPoint points[] = getSecantPoints();
 
-            tst_log.debug("solving for TestSecantFunction class '{}'", function.getClass().getName());
+            log_tst.debug("solving for TestSecantFunction class '{}'", function.getClass().getName());
             
             int i = 0;
             for ( ; i < points.length; i++) {
-                tst_log.debug("\tx: {}\tfx: {}",String.format("%12.9f",points[i].x()),String.format("%12.9f",points[i].fx()));
+                log_tst.debug("\tx: {}\tfx: {}",String.format("%12.9f",points[i].x()),String.format("%12.9f",points[i].fx()));
             }
 
-            tst_log.info("solution:  x = '{}', f(x) = '{}' for TestSecantFunction class '{}'",String.format("%12.9f",points[i-1].x()),String.format("%12.9f",points[i-1].fx()),function.getClass().getName());
+            log_tst.info("solution:  x = '{}', f(x) = '{}' for TestSecantFunction class '{}'",String.format("%12.9f",points[i-1].x()),String.format("%12.9f",points[i-1].fx()),function.getClass().getName());
 
             assertTrue((function.solutionReference() - solution.x()) < function.useEpsilon());
             assertTrue(points[points.length-1].fx().doubleValue() < function.useEpsilon());

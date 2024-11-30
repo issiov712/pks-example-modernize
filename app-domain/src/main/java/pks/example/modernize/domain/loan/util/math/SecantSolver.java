@@ -42,8 +42,8 @@ public class SecantSolver {
      * on the solution using the secant method.</p>
      * 
      * @param function Actually the class that implements {@link SecantFunction} and provides the {@link SecantFunction#calculate(Double)}.
-     * @param ax The first guess value, x<sub>1</sub>,for use initializing the secant method.
-     * @param bx The second guess value, x<sub>2</sub>, for use initializing the secant method.
+     * @param ax The first guess value <i><b>x<sub>1</sub></b></i> for use initializing the secant method.
+     * @param bx The second guess value <i><b>x<sub>2</sub></b></i> for use initializing the secant method.
      * @return The calculated {@link SecantPoint} which is the solution to a root of the equation.
      */
     public SecantPoint solve(SecantFunction function, Double ax, Double bx) {
@@ -74,7 +74,7 @@ public class SecantSolver {
     /**
      * <p>The secant solution finding method.</p>
      * 
-     * <p>This call utilizes initial guess values of x<sub>1</sub> = 1.0d and x<sub>2</sub> = 2.0d.</p>
+     * <p>This call utilizes initial guess values of <i><b>x<sub>1</sub> = 1.0d</b></i> and <i><b>x<sub>2</sub> = 2.0d</b></i>.</p>
      * 
      * @param function Actually the class that implements {@link SecantFunction} and provides the {@link SecantFunction#calculate(Double)}.
      * @return The calculated {@link SecantPoint} which is the solution to a root of the equation.

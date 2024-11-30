@@ -17,4 +17,6 @@
 
   <logger level="debug" name="pks.example.modernize.domain.loan.util.math.SecantBasicTest" />
 
+  <include optional="true" file="conf/logback-include.xml" />
+
 </configuration>
