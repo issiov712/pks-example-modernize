@@ -1,6 +1,7 @@
 package pks.example.modernize.domain.loan.util.math;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -58,6 +59,7 @@ public class SecantBasicTest {
         
         TestSecantSolver solver = new TestSecantSolver();
         solver.testSolver(new MySimpleSecantFunction());
+        assertTrue(solver.isSolved());
     }
 
     @Test
@@ -71,6 +73,7 @@ public class SecantBasicTest {
     
         TestSecantSolver solver = new TestSecantSolver();
         solver.testSolver(new MyNextSimpleSecantFunction(),4.0d,8.0d);
+        assertTrue(solver.isSolved());
     }
 
     @Test
@@ -84,5 +87,6 @@ public class SecantBasicTest {
 
         TestSecantSolver solver = new TestSecantSolver();
         solver.testSolver(new MyThirdSimpleSecantFunction());
+        assertTrue(solver.isSolved());
     }
 }

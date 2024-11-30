@@ -32,7 +32,7 @@ public class SecantSolver {
     /**
      * A flag to indicate the finding of successful solution within tolerance {@link epsilon}.
      */
-    @Getter private Boolean solved;
+    @Getter private boolean solved;
 
     /**
      * <p>A list of the points found during the solution iteration.</p>
@@ -46,6 +46,9 @@ public class SecantSolver {
      * 
      * <p>This iterates through {@link SecantFunction#calculate(Double)} calls as it home in
      * on the solution using the secant method.</p>
+     * 
+     * <p>Note: This returns the last copmuted value and sets {@link SecantSolver#isSolved} to false
+     * if a {@link RuntimeException} is throw during the calculation.</p>
      * 
      * @param function Actually the class that implements {@link SecantFunction} and provides the {@link SecantFunction#calculate(Double)}.
      * @param ax The first guess value <i><b>x<sub>1</sub></b></i> for use initializing the secant method.
@@ -61,19 +64,20 @@ public class SecantSolver {
         points.add(a);
         points.add(b);
 
-        while (Math.abs(b.fx()) > epsilon || Math.abs(b.x() - a.x()) > epsilon) {
-            try {
+        try {
+            while (Math.abs(b.fx()) > epsilon || Math.abs(b.x() - a.x()) > epsilon) {
                 Double cx = b.x() - b.fx() * ((a.x() - b.x()) / (a.fx() - b.fx()));
                 a = b;
                 b = new SecantPoint(cx,function.calculate(cx));
                 points.add(b);
-            } catch (RuntimeException ex) {
-                log_msg.warn(ex.getMessage());
-                solved = false;
             }
+            solved = true;
+
+        } catch (RuntimeException ex) {
+            log_msg.warn(ex.getMessage());
+            solved = false;
         }
 
-        solved = true;
         return b;
     }
 
