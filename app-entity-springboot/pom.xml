@@ -10,8 +10,8 @@
 	</parent>
 
 	<groupId>pks.example.modernize</groupId>
-	<artifactId>app-entity</artifactId>
-	<name>Modernize - Application Entities</name>
+	<artifactId>app-entity-springboot</artifactId>
+	<name>Modernize - Spring Application Entities</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<url/>
