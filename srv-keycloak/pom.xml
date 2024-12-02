@@ -6,13 +6,12 @@
 	<parent>
 		<groupId>pks.example.modernize</groupId>
 		<artifactId>servers-parent</artifactId>
-		<version>${revision}</version>
+		<version>0.0.0-SNAPSHOT</version>
         <relativePath>../srv-parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>pks.example.modernize</groupId>
 	<artifactId>keycloak-server</artifactId>
-	<!-- <version>0.0.1-SNAPSHOT</version> -->
 	<name>Modernize - Keycloak Container</name>
 	<description></description>
 
