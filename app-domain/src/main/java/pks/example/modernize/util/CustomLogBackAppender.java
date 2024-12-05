@@ -14,6 +14,18 @@ import lombok.Setter;
  * <a href="https://logback.qos.ch/manual/appenders.html#DBAppender">https://logback.qos.ch/manual/appenders.html#DBAppender</a> )</p>
  * 
  * <p>This is the correct way to intercept the logging event and send it to a different logging sink using the logging event as already defined.</p>
+ * 
+ * <p>To configure...
+ * <pre>{@code
+ *   <import class="pks.example.modernize.util.CustomLogBackAppender"/>
+ *
+ *   <appender name="STDOUT" class="CustomLogBackAppender">
+ *      <encoder class="PatternLayoutEncoder">
+ *        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+ *      </encoder>
+ *      <prefix>CUSTOM </prefix>
+ *    </appender>
+ * }</pre>
  */
 @Getter @Setter
 public class CustomLogBackAppender extends ConsoleAppender<ILoggingEvent> {
