@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra.entity;
+package pks.example.ddd.infrastructure.adapter.db.pet;
 
 import java.util.List;
 // import java.util.Optional;

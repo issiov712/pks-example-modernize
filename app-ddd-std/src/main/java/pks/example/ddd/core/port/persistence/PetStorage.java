@@ -1,9 +1,9 @@
-package pks.example.ddd.pet.ports.outbound;
+package pks.example.ddd.core.port.persistence;
 
 import java.util.List;
 import java.util.Optional;
 
-import pks.example.ddd.pet.core.Pet;
+import pks.example.ddd.core.model.pet.Pet;
 
 public interface PetStorage {
     public void store(Pet pet);

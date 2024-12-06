@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra.entity;
+package pks.example.ddd.infrastructure.adapter.db.pet;
 
 import java.math.BigDecimal;
 import java.sql.Date;

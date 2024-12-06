@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra;
+package pks.example.ddd.infrastructure.adapter.db.pet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,11 +19,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-// import pks.example.ddd.main.StandardDomainApplication;
-import pks.example.ddd.pet.core.Pet;
-import pks.example.ddd.pet.infra.entity.PetEntity;
-import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
-import pks.example.ddd.pet.ports.outbound.PetStorage;
+import pks.example.ddd.core.model.pet.Pet;
+import pks.example.ddd.core.port.persistence.PetStorage;
+import pks.example.ddd.infrastructure.adapter.db.map.PetEntityMapper;
+import pks.example.ddd.infrastructure.adapter.db.map.PetMappingTest;
+import pks.example.ddd.infrastructure.adapter.db.pet.PetEntity;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

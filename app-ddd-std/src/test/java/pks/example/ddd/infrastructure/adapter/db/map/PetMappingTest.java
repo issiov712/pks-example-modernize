@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra;
+package pks.example.ddd.infrastructure.adapter.db.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,9 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pks.example.ddd.pet.core.Pet;
-import pks.example.ddd.pet.infra.entity.PetEntity;
-import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
+import pks.example.ddd.core.model.pet.Pet;
+import pks.example.ddd.infrastructure.adapter.db.map.PetEntityMapper;
+import pks.example.ddd.infrastructure.adapter.db.pet.PetEntity;
+import pks.example.ddd.infrastructure.adapter.db.pet.PetEntityTest;
 
 public class PetMappingTest {
 

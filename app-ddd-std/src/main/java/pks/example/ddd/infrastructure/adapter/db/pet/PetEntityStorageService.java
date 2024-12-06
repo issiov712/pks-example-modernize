@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra.entity;
+package pks.example.ddd.infrastructure.adapter.db.pet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pks.example.ddd.pet.core.Pet;
-import pks.example.ddd.pet.infra.mapper.PetEntityMapper;
-import pks.example.ddd.pet.ports.outbound.PetStorage;
+import pks.example.ddd.core.model.pet.Pet;
+import pks.example.ddd.core.port.persistence.PetStorage;
+import pks.example.ddd.infrastructure.adapter.db.map.PetEntityMapper;
 
 @Service
 public class PetEntityStorageService implements PetStorage {

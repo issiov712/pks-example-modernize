@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.core;
+package pks.example.ddd.core.model.pet;
 
 import java.sql.Date;
 

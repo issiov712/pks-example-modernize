@@ -1,4 +1,4 @@
-package pks.example.ddd.pet.infra.entity;
+package pks.example.ddd.infrastructure.config;
 
 // import org.springframework.boot.SpringBootConfiguration;
 
