@@ -21,7 +21,7 @@ import pks.example.ddd.infrastructure.adapter.map.MoneyMapper;
 @Mapper(uses = MoneyMapper.class)
 @Javadoc(
     """
-    {@link pks.example.ddd.pet.core.Pet} to/from {@link pks.example.ddd.pet.infra.entity.PetEntity}
+    {@link pks.example.ddd.core.model.pet.Pet} to/from {@link pks.example.ddd.infrastructure.adapter.db.pet.PetEntity}
 
     @author Peter Shiner
     @since 0.1
