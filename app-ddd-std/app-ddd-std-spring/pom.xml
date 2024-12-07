@@ -9,7 +9,7 @@
 		<version>0.0.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>pks.example.ddd</groupId>
+	<groupId>pks.example.ddd.petshop</groupId>
 	<artifactId>spring-app-infrastructure</artifactId>
 	<name>Pet Shop: Spring Application</name>
 	<description><![CDATA[
