@@ -9,149 +9,19 @@
 		<version>0.0.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>pks.example.ddd</groupId>
-	<artifactId>app-ddd-std</artifactId>
-	<name>Domain Driven Design Standard</name>
-	<description>Demo project for Spring Boot</description>
-	
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
+	<groupId>pks.example.ddd.petshop</groupId>
+	<artifactId>master-parent</artifactId>
+    <name>Pet Shop: Master Parent</name>
+    <packaging>pom</packaging>
 
-	<developers>
-		<developer/>
-	</developers>
+    <modules>
+        <module>bdc-ddd-std-petshop</module>
+        <module>app-ddd-std-spring</module>
+        <module>app-ddd-std-quarkus</module>
+    </modules>
 
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-
-	<properties>
-		
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-		</dependency>
-		<dependency>
-    		<groupId>org.javamoney</groupId>
-    		<artifactId>moneta</artifactId>
-			<version>${javamoney-moneta.version}</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<!-- <version>2.1.214</version> -->
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<!-- <scope>runtime</scope> -->
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-		      <plugin>
-			  	<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-compiler-plugin</artifactId>
-		    </plugin>
-			
-			<plugin>
-				<groupId>org.hibernate.orm.tooling</groupId>
-				<artifactId>hibernate-enhance-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-    			<groupId>org.liquibase</groupId>
-    			<artifactId>liquibase-maven-plugin</artifactId>
-				<configuration>
-				    <changeLogFile>src/main/resources/db/changelog/changelog-master.yaml</changeLogFile>
-    				<url>jdbc:postgresql://localhost:5432/ex_modernize</url>
-    				<username>ex_admin</username>
-    				<password>ex_password</password>
-				</configuration>
-			</plugin>			
-		</plugins>
-	</build>
-
-<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" -->
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven-javadoc-plugin.version}</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>javadoc-no-fork</report>
-							<report>test-javadoc-no-fork</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
+    <properties>
+        <master-parent-petshop.version>${project.version}</master-parent-petshop.version>
+    </properties>
 
 </project>
