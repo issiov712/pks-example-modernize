@@ -22,7 +22,7 @@ import lombok.ToString;
  /*
   * one idea for a domain object is to just use entities with protected access no argument constructors
   */
-@Entity @Getter@Setter @ToString @NoArgsConstructor // (access = AccessLevel.PROTECTED)
+@Entity @Getter @Setter @ToString @NoArgsConstructor // (access = AccessLevel.PROTECTED)
 @Table(name = "PET")
 public class PetEntity {
 

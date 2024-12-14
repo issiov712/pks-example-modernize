@@ -12,6 +12,7 @@
 	<groupId>pks.example.ddd.petshop</groupId>
 	<artifactId>spring-app-infrastructure</artifactId>
 	<name>Pet Shop: Spring Application</name>
+	<packaging>jar</packaging>
 	<description><![CDATA[
 		]]></description>
 	
@@ -126,6 +127,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>repackage</goal>
+            </goals>
+            <configuration>
+                <classifier>spring-boot</classifier>
+                <!-- <mainClass>
+                  com.baeldung.executable.ExecutableMavenJar
+                </mainClass> -->
+            </configuration>
+        </execution>
+    </executions>				
 			</plugin>
 			<plugin>
     			<groupId>org.liquibase</groupId>
@@ -136,7 +150,30 @@
     				<username>ex_admin</username>
     				<password>ex_password</password>
 				</configuration>
-			</plugin>			
+			</plugin>
+      <!-- <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+        	<shadedArtifactAttached>true</shadedArtifactAttached>
+        	<shadedClassifierName>uberjar</shadedClassifierName>
+			<relocations>
+				<relocations>
+					<pattern>pks.example.ddd</pattern>
+					<shadedPattern>pks.shaded</shadedPattern>
+				</relocations>
+			</relocations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>					 -->
 		</plugins>
 	</build>
 
