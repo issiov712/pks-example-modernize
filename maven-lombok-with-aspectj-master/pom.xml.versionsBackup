@@ -26,15 +26,14 @@
 
 		<org-mapstruct.version>1.6.3</org-mapstruct.version>
 		<org-slf4j.version>2.0.16</org-slf4j.version>
-		<ch-qos-logback.version>1.5.12</ch-qos-logback.version>
+		<ch-qos-logback.version>1.4.6</ch-qos-logback.version>
 
 		<javamoney-moneta.version>1.4.4</javamoney-moneta.version>
 
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 
 		<aspectj-maven-plugin.version>1.14</aspectj-maven-plugin.version>
-		<aspectj-maven-plugin.verbose>false</aspectj-maven-plugin.verbose>
-
+		<aspectj-maven-plugin.verbose>true</aspectj-maven-plugin.verbose>
 		<versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
 	</properties>
 
@@ -189,7 +188,6 @@
 				<java.version>8</java.version>
 				<org-aspectj.version>1.8.14</org-aspectj.version>
 				<org-projectlombok.version>1.18.10</org-projectlombok.version>
-				<ch-qos-logback.version>1.3.14</ch-qos-logback.version>
 			</properties>
 		</profile>
 		<profile>
