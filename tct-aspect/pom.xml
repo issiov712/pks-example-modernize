@@ -3,21 +3,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
+	<!-- <parent>
 		<groupId>pks.example.modernize</groupId>
 		<artifactId>master-parent</artifactId>
 		<version>0.0.0-SNAPSHOT</version>
-	</parent>
+	</parent> -->
 
 	<name>Example: Aspect, Mapstruct, &amp; Lombok</name>
 	<groupId>pks.example.aspect</groupId>
 	<artifactId>tech-demo</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description><![CDATA[
 	]]></description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +26,7 @@
 
 		<org-projectlombok.version>1.18.36</org-projectlombok.version>
 		<org-mapstruct.version>1.6.3</org-mapstruct.version>
-		<org-aspectj.version>1.9.22.1</org-aspectj.version>
+		<org-aspectj.version>1.9.21.2</org-aspectj.version>
 
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -33,13 +34,13 @@
 		<!-- <maven-javadoc-plugin.version>3.11.1</maven-javadoc-plugin.version> -->
 		<lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
-		<aspectj-maven-plugin.version>1.15.0</aspectj-maven-plugin.version>
+		<dev-aspectj-maven-plugin.version>1.14</dev-aspectj-maven-plugin.version>
 
 		<versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
 
 		<org-javamoney.version>1.4.4</org-javamoney.version>
 
-		<org-junit-jupiter.version>5.9.1</org-junit-jupiter.version>
+		<org-junit-jupiter.version>5.11.3</org-junit-jupiter.version>
 	</properties>
 
 	<dependencyManagement>
@@ -86,10 +87,11 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.junit.jupiter</groupId>
+				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
 				<version>${org-junit-jupiter.version}</version>
-				<scope>test</scope>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -116,6 +118,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -124,34 +127,37 @@
 		<pluginManagement>
 			<plugins>
                 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>${maven-compiler-plugin.version}</version>
-            <configuration>
-                <annotationProcessorPaths>
-                    <path>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </path>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<annotationProcessorPaths>
 							<path>
-    							<groupId>org.projectlombok</groupId>
-    							<artifactId>lombok-mapstruct-binding</artifactId>
-    							<version>${lombok-mapstruct-binding.version}</version>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
 							</path>
-                    <path>
-                        <groupId>org.mapstruct</groupId>
-                        <artifactId>mapstruct-processor</artifactId>
-                    </path>
-                </annotationProcessorPaths>
-                <compilerArgs>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok-mapstruct-binding</artifactId>
+								<version>${lombok-mapstruct-binding.version}</version>
+							</path>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+							</path>
+						</annotationProcessorPaths>
+						<outputDirectory>${project.build.directory}/unwoven-classes</outputDirectory>
+						<compilerArgs>
+
                     <!-- <arg>-parameters</arg> -->
 					<!-- <arg>-Amapstruct.verbose=true</arg> -->
                     <!-- <arg>-Amapstruct.defaultComponentModel="spring"</arg> -->
                     <!-- <arg>-Amapstruct.unmappedTargetPolicy=ERROR</arg> -->
-                </compilerArgs>
-            </configuration>
-        </plugin>
+
+						</compilerArgs>
+					</configuration>
+				</plugin>
 
 				<plugin>
 					<groupId>org.projectlombok</groupId>
@@ -179,50 +185,57 @@
 						<verbose>false</verbose>
 					</configuration>
 				</plugin>
-<!-- 
+
         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>aspectj-maven-plugin</artifactId>
-            <version>${aspectj-maven-plugin.version}</version>
-            <dependencies>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>                    
-                </dependency>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjrt</artifactId>
-                </dependency>
-            </dependencies>
+					<groupId>dev.aspectj</groupId>
+					<artifactId>aspectj-maven-plugin</artifactId>
+					<version>${dev-aspectj-maven-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.aspectj</groupId>
+							<artifactId>aspecttools</artifactId>
+							<version>${org-aspectj.version}</version>
+						</dependency>
+					</dependencies>
+
             <executions>
                 <execution>
+								<id>aspect-weave</id>
                     <phase>process-classes</phase>
                     <goals>
                         <goal>compile</goal>
                     </goals>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <weaveDirectories>
-                            <directory>${project.build.directory}/classes</directory>
-                        </weaveDirectories>
+					                </execution>
+									<execution>
+										<id>aspect-test-weave</id>
+														<phase>process-test-classes</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goalseInfo>true</showWeaveInfo>
+									<encoding>${project.sourceEncoding}</encoding>
+									<weaveDirectories>{project.build.directory}/unwoven-classes</weaveDirectories>
+                        <!-- <weaveDirectories> -->
+                            <!-- <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory> -->
+                            <!-- <directory>${project.build.directory}/unwoven-classes</directory> -->
+                        <!-- </weaveDirectories> -->
                     </configuration>
-                </execution>
-            </executions>
-        </plugin> -->
-
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven-surefire-plugin.version}</version>
-            <dependencies>
-                <dependency>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-engine</artifactId>
-                    <version>${org-junit-jupiter.version}</version>
-                </dependency>
-            </dependencies>
         </plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.jupiter</groupId>
+							<artifactId>junit-jupiter-engine</artifactId>
+							<version>${org-junit-jupiter.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<argLine>-XX:+EnableDynamicAgentLoading</argLine>
+					</configuration>
+				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -230,18 +243,17 @@
 					<version>${versions-maven-plugin.version}</version>
 					<configuration>
 						<allowMajorUpdates>false</allowMajorUpdates>
-			            <ruleSet>
-			              <ignoreVersions>
-			                <ignoreVersion><type>regex</type><version>.+[-.](SNAPSHOT|M\d).*?</version></ignoreVersion>
-			                <ignoreVersion><type>regex</type><version>.+[-.]([aA]lpha|[bB]eta).*?</version></ignoreVersion>
-			                <ignoreVersion><type>regex</type><version>.+[-.]([rR][cC]|[mM]).*?</version></ignoreVersion>
-              				</ignoreVersions>
-			            </ruleSet>
+							<ruleSet>
+								<ignoreVersions>
+									<ignoreVersion><type>regex</type><version>.+[-.](SNAPSHOT|M\d).*?</version></ignoreVersion>
+									<ignoreVersion><type>regex</type><version>.+[-.]([aA]lpha|[bB]eta).*?</version></ignoreVersion>
+									<ignoreVersion><type>regex</type><version>.+[-.]([rR][cC]|[mM]).*?</version></ignoreVersion>
+								</ignoreVersions>
+						</ruleSet>
 					</configuration>
 				</plugin>
-
-            </plugins>
-        </pluginManagement>
+			</plugins>
+		</pluginManagement>
 
 		<plugins>
 			<plugin>
