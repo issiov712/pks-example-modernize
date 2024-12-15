@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.test.dto.TestDto;
 import com.test.entity.TestEntity;
+import com.test.mapper.TestMapper;
 
 public class SetterAspectTest {
 
@@ -40,4 +42,16 @@ public class SetterAspectTest {
 
         assertEquals("something", testEntityEntity.getField());
     }
+
+	@Test
+	public void whenMapping() {
+        TestEntity testEntityEntity = TestEntity.builder()
+            .field("something")
+            .build();
+		TestDto testDto = TestMapper.INSTANCE.maptoDto(testEntityEntity);
+
+		assertEquals(testDto.getField(),testEntityEntity.getField());
+		assertEquals("something",testDto.getField());
+		System.out.println(testDto.toString());
+	}
 }

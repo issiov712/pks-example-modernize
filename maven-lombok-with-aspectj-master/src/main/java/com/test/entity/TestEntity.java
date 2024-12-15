@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.javamoney.moneta.Money;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -13,4 +15,5 @@ import lombok.Setter;
 @Builder
 public class TestEntity {
     private String field;
+	@Builder.Default private Money value = Money.of(0,"USD");
 }
