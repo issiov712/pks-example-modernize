@@ -33,6 +33,7 @@
 		<module>app-domain</module>
 		<module>app-entity-springboot</module>
 		<module>tct-aspect</module>
+		<module>maven-lombok-with-aspectj-master</module>
 	</modules>
 
 	<properties>

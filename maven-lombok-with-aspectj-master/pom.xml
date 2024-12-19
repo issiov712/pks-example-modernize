@@ -3,11 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>pks.example.modernize</groupId>
+		<artifactId>master-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<name>Example: Working Apsect, Lombok, &amp; Mapstruct</name>
 	<groupId>com.test</groupId>
 	<artifactId>maven-lombok-with-aspectj</artifactId>
 	<packaging>jar</packaging>
 	<version>0.0.0-SNAPSHOT</version>
-	<name>test</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

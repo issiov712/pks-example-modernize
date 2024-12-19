@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- <parent>
+	<parent>
 		<groupId>pks.example.modernize</groupId>
 		<artifactId>master-parent</artifactId>
 		<version>0.0.0-SNAPSHOT</version>
-	</parent> -->
+	</parent>
 
-	<name>Example: Aspect, Mapstruct, &amp; Lombok</name>
+	<name>Example: Try for Aspect, Mapstruct, &amp; Lombok</name>
 	<groupId>pks.example.aspect</groupId>
 	<artifactId>tech-demo</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
@@ -186,7 +186,7 @@
 					</configuration>
 				</plugin>
 
-        <plugin>
+        <!-- <plugin>
 					<groupId>dev.aspectj</groupId>
 					<artifactId>aspectj-maven-plugin</artifactId>
 					<version>${dev-aspectj-maven-plugin.version}</version>
@@ -211,15 +211,16 @@
 														<phase>process-test-classes</phase>
                     <goals>
                         <goal>compile</goal>
-                    </goalseInfo>true</showWeaveInfo>
+						</goals>
+                    <showWeaveInfo>true</showWeaveInfo>
 									<encoding>${project.sourceEncoding}</encoding>
 									<weaveDirectories>{project.build.directory}/unwoven-classes</weaveDirectories>
-                        <!-- <weaveDirectories> -->
-                            <!-- <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory> -->
-                            <!-- <directory>${project.build.directory}/unwoven-classes</directory> -->
-                        <!-- </weaveDirectories> -->
+                        <weaveDirectories>
+                            <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory>
+                            <directory>${project.build.directory}/unwoven-classes</directory>
+                        </weaveDirectories>
                     </configuration>
-        </plugin>
+        </plugin> -->
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
