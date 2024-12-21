@@ -5,6 +5,8 @@ import java.sql.Date;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 
+import pks.example.modernize.domain.core.model.loan.core.Loan;
+
 public class LoanTest {
     
 
