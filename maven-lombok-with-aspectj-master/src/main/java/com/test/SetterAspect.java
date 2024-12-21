@@ -43,7 +43,7 @@ public class SetterAspect {
 	}
 
 
-    @Around(value = "execution(* com.test.entity.*.set*(..))")
+    @Around(value = "execution(* com.test.entity.TestEntity.setField(..))")
     public void checkBeforeCallingSetter(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		Logger log = getJoinPointLogger(joinPoint);

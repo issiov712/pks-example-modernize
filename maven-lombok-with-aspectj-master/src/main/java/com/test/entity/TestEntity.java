@@ -14,6 +14,6 @@ import org.javamoney.moneta.Money;
 @Getter
 @Builder
 public class TestEntity {
-    private String field;
+    @Builder.Default private String field = null;
 	@Builder.Default private Money value = Money.of(0,"USD");
 }

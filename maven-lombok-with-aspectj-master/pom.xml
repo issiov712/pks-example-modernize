@@ -194,7 +194,15 @@
 				</dependencies>
 				<executions>
 					<execution>
+						<id>generate-sources</id>
 						<phase>generate-sources</phase>
+						<goals>
+							<goal>delombok</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-test-sources</id>
+						<phase>generate-test-sources</phase>
 						<goals>
 							<goal>delombok</goal>
 						</goals>

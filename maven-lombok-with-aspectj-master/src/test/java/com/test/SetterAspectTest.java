@@ -1,6 +1,7 @@
 package com.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class SetterAspectTest {
         testEntityEntity.setField(null);
 
         assertEquals("something", testEntityEntity.getField());
-    }
+	}
 
     @Test
     public void whenSetterParamIsNotEmpty_thenShouldCallTheSetter() {
