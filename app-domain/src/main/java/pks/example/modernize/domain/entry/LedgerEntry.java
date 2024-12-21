@@ -18,6 +18,7 @@ public class LedgerEntry extends Entry {
 			.build();
 		for (TimeLineEntryItem ei : entry.list()) {
 			LedgerItem li = LedgerItem.from((EntryItem)ei,credit,debit);
+			le.add(li);
 		}
 		return le;
 	}

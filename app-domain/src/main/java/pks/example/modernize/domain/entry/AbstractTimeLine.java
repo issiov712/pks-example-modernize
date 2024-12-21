@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AbstractTimeLine implements TimeLine {
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+@ToString(callSuper = true) @SuperBuilder
+@Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class AbstractTimeLine implements TimeLine {
 	List<TimeLineEntry> entries = new ArrayList<TimeLineEntry>();
 
 	public void add(TimeLineEntry entry) {
@@ -26,5 +34,15 @@ public class AbstractTimeLine implements TimeLine {
 	public List<TimeLineEntry> list() {
 		entries = ( entries == null ) ? new ArrayList<TimeLineEntry>() : entries;
 		return Collections.unmodifiableList(entries);
+	}
+
+	public TimeLine sort() {
+		if (entries != null) {
+			Collections.sort(entries);
+			for (TimeLineEntry e : entries) {
+				e.sort();
+			}
+		}
+		return this;
 	}
 }

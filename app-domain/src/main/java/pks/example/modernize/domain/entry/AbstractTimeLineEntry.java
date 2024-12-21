@@ -12,7 +12,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @ToString @SuperBuilder @Getter
-public class AbstractTimeLineEntry implements TimeLineEntry {
+public abstract class AbstractTimeLineEntry implements TimeLineEntry {
 	@Builder.Default private List<TimeLineEntryItem> items = new ArrayList<TimeLineEntryItem>();
 	private Date scheduled;
 
@@ -25,8 +25,9 @@ public class AbstractTimeLineEntry implements TimeLineEntry {
 		scheduled = new Date(Calendar.getInstance().getTime().getTime()+10);
 	}
 
-	public int compareTo(TimeLineEntry that) {
-		return 0;
+	public int compareTo(TimeLineEntry obj) {
+		AbstractTimeLineEntry that = (AbstractTimeLineEntry)obj;
+		return this.scheduled.compareTo(that.scheduled);
 	}
 
 	public void add(TimeLineEntryItem item) {
@@ -40,6 +41,13 @@ public class AbstractTimeLineEntry implements TimeLineEntry {
 	public List<TimeLineEntryItem> list() {
 		items = ( items == null ) ? new ArrayList<TimeLineEntryItem>() : items;
 		return Collections.unmodifiableList(items);
+	}
+
+	public TimeLineEntry sort() {
+		if (items != null) {
+			Collections.sort(items);
+		}
+		return this;
 	}
 
 }

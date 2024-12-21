@@ -12,7 +12,7 @@ public class TimeLineTest {
 	@Test
 	public void checkTimeLineUsefullness() {
 
-		TimeLine tl = (TimeLine) new AbstractTimeLine();
+		TimeLine tl = (TimeLine) new DefaultTimeLine();
 		tl.add(new LedgerEntry());
 		tl.add(new Entry());
 		tl.add(LedgerEntry.builder().scheduled(Date.valueOf("2024-12-02")).build());
@@ -45,7 +45,7 @@ public class TimeLineTest {
 		le.add(li);
 		tl.add(le);
 
-		TimeLine tl2 = (TimeLine) new AbstractTimeLine();
+		TimeLine tl2 = (TimeLine) new DefaultTimeLine();
 
 		for (TimeLineEntry tle : tl.list()) {
 			if (tle != null && tle.getClass().equals(Entry.class)) {
@@ -58,7 +58,8 @@ public class TimeLineTest {
 			}
 		}
 
-		for (TimeLineEntry tle : tl2.list()) {
+		
+		for (TimeLineEntry tle : tl2.sort().list()) {
 			System.out.println("entry: " + tle.toString());
 		}
 	}

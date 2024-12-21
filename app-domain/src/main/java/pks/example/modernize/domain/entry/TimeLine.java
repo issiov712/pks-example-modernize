@@ -6,4 +6,5 @@ public interface TimeLine {
 	public void add(TimeLineEntry entry);
 	public int size();
 	public List<TimeLineEntry> list();
+	public TimeLine sort();
 }
