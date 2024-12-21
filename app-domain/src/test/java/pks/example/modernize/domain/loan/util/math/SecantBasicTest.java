@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.NoArgsConstructor;
-import pks.example.modernize.domain.core.model.loan.util.math.SecantFunction;
-import pks.example.modernize.domain.core.model.loan.util.math.SecantPoint;
-import pks.example.modernize.domain.core.model.loan.util.math.SecantSolver;
+import pks.example.modernize.domain.loan.util.math.SecantFunction;
+import pks.example.modernize.domain.loan.util.math.SecantPoint;
+import pks.example.modernize.domain.loan.util.math.SecantSolver;
 
 
 public class SecantBasicTest {
