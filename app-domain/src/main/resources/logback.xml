@@ -6,6 +6,7 @@
   <import class="ch.qos.logback.core.ConsoleAppender"/>
 
   <appender name="stdout" class="ConsoleAppender">
+		<target>System.out</target>
     <encoder class="PatternLayoutEncoder">
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
     </encoder>

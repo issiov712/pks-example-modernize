@@ -7,12 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.NoArgsConstructor;
-import pks.example.modernize.domain.loan.util.math.SecantFunction;
-import pks.example.modernize.domain.loan.util.math.SecantPoint;
-import pks.example.modernize.domain.loan.util.math.SecantSolver;
-
-
 public class SecantBasicTest {
     Logger log_tst = LoggerFactory.getLogger(SecantBasicTest.class);
 
@@ -24,7 +18,6 @@ public class SecantBasicTest {
     /**
      * 
      */
-    @NoArgsConstructor
     class TestSecantSolver extends SecantSolver {
         SecantFunction function;
 

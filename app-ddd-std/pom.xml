@@ -17,7 +17,7 @@
     <modules>
         <module>bdc-ddd-std-petshop</module>
         <module>app-ddd-std-spring</module>
-        <module>app-ddd-std-quarkus</module>
+        <!-- <module>app-ddd-std-quarkus</module> -->
     </modules>
 
     <properties>
