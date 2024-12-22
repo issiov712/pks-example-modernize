@@ -72,11 +72,11 @@
    			<artifactId>moneta</artifactId>
 			<type>pom</type>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.14.0</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -115,11 +115,31 @@
 
 	<build>
 		<plugins>
-		      <plugin>
-			  	<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-compiler-plugin</artifactId>
-		    </plugin>
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<configuration>
+					<rules combine.children="merge">
+						<bannedDependencies>
+							<excludes>
+								<exclude>org.projectlombok:lombok:(,1.18.34)</exclude>
+							</excludes>
+							<message>&nbsp;<![CDATA[
+IMPORTANT:
+  At least 'org.projectlombok:lombok:1.18.34' is required to properly compile.
+  Additionally, there are connected version requirements with AspectJ(?).
+  Check the root pom.xml profile definitions.
+								]]>&nbsp;</message>
+						</bannedDependencies>
+					</rules>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
 			<plugin>
 				<groupId>org.hibernate.orm.tooling</groupId>
 				<artifactId>hibernate-enhance-maven-plugin</artifactId>
@@ -132,54 +152,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 			<plugin>
-    			<groupId>org.liquibase</groupId>
-    			<artifactId>liquibase-maven-plugin</artifactId>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
 				<configuration>
-				    <changeLogFile>src/main/resources/db/changelog/changelog-master.yaml</changeLogFile>
-    				<url>jdbc:postgresql://localhost:5432/ex_modernize</url>
-    				<username>ex_admin</username>
-    				<password>ex_password</password>
+					<changeLogFile>src/main/resources/db/changelog/changelog-master.yaml</changeLogFile>
+					<url>jdbc:postgresql://localhost:5432/ex_modernize</url>
+					<username>ex_admin</username>
+					<password>ex_password</password>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok-maven-plugin</artifactId>
-				<version>${lombok-maven-plugin.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.projectlombok</groupId>
-						<artifactId>lombok</artifactId>
-						<version>${org-projectlombok.version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<addOutputDirectory>false</addOutputDirectory>
-					<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-					<outputDirectory>${project.build.directory}/generated-sources/delombok</outputDirectory>
-					<verbose>false</verbose>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.11.2</version>
-				<configuration>
-					<failOnError>false</failOnError>
-					<sourcepath>${project.basedir}/src/main/java</sourcepath>
-				</configuration>
 			</plugin>			
 		</plugins>
 	</build>
-
-<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" -->
 
 </project>
