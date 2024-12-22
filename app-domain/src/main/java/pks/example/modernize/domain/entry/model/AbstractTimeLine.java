@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -13,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true) @SuperBuilder
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractTimeLine implements TimeLine {
-	List<TimeLineEntry> entries = new ArrayList<TimeLineEntry>();
+	@Builder.Default List<TimeLineEntry> entries = new ArrayList<TimeLineEntry>();
 
 	public void add(TimeLineEntry entry) {
 		this.add((AbstractTimeLineEntry)entry);

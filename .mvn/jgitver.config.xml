@@ -29,5 +29,5 @@ if (! metadata.BASE_COMMIT_ON_HEAD || ! metadata.ANNOTATED || metadata.DIRTY ) {
 }
 
 print mmp + ';' + qualifiers.join(';')
-]]></script>
+	]]></script>
 </configuration>

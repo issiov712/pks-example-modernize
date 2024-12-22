@@ -105,12 +105,10 @@
 <dependency>
     <groupId>org.aspectj</groupId>
     <artifactId>aspectjrt</artifactId>
-    <version>1.9.22.1</version>
 </dependency>
 <dependency>
     <groupId>org.aspectj</groupId>
     <artifactId>aspectjweaver</artifactId>
-    <version>1.9.22.1</version>
 </dependency>
 	</dependencies>
 
@@ -174,49 +172,6 @@
 <plugin>
     <groupId>dev.aspectj</groupId>
     <artifactId>aspectj-maven-plugin</artifactId>
-    <version>1.14</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.9.22.1</version>
-          </dependency>
-          <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjtools</artifactId>
-            <version>1.9.22.1</version>
-          </dependency>
-		</dependencies>
-    <configuration>
-                    <complianceLevel>${maven.compiler.target}</complianceLevel>
-                    <source>${maven.compiler.target}</source>
-                    <target>${maven.compiler.target}</target>
-        <showWeaveInfo>true</showWeaveInfo>
-        <verbose>true</verbose>
-        <Xlint>ignore</Xlint>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <!-- <forceAjcCompile>true</forceAjcCompile> -->
-					<!-- this is important!-->
-                    <sources/>
-					<!-- <sources>${project.build.directory}/generated-sources/delombok</sources> -->
-					<!-- <sources>${project.basedir}/src/main/aspect</sources> -->
-
-                    <weaveDirectories>
-                        <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory>
-                    </weaveDirectories>
-					<weaveMainSourceFolder>false</weaveMainSourceFolder>
-    </configuration>
-    <executions>
-        <execution>
-			<phase>process-classes</phase>
-            <goals>
-                <!-- use this goal to weave all your main classes -->
-                <goal>compile</goal>
-                <!-- use this goal to weave all your test classes -->
-                <goal>test-compile</goal>
-            </goals>
-        </execution>
-    </executions>
 </plugin>
 		</plugins>
 	</build>
