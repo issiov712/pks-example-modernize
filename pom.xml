@@ -56,7 +56,7 @@
 
 		<!-- frameworks, etc. -->
 		<spring-boot-starter.version>3.4.1</spring-boot-starter.version>
-		<liquibase-core.version>4.29.2</liquibase-core.version>
+		<liquibase-core.version>4.30.0</liquibase-core.version>
 
 		<!-- more normal dependencies -->
 		<org-slf4j.version>2.0.16</org-slf4j.version>
@@ -82,7 +82,7 @@
 		<spring-boot-maven-plugin.version>3.4.1</spring-boot-maven-plugin.version>
 		<hibernate-enhance-maven-plugin.version>6.6.4.Final</hibernate-enhance-maven-plugin.version>
 		<native-graalvm-maven-plugin.version>0.10.4</native-graalvm-maven-plugin.version>
-		<org-junit-jupiter.version>5.11.3</org-junit-jupiter.version>
+		<org-junit-jupiter.version>5.11.4</org-junit-jupiter.version>
 
 		<!-- additional maven plugin version properties -->
 		<liquibase-maven-plugin.version>4.30.0</liquibase-maven-plugin.version>
