@@ -1,14 +1,13 @@
 package com.test;
 
-// import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import com.test.util.StringPair;
 import com.test.util.StringSortablePair;
 
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 public class StringPairTest {
