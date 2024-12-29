@@ -11,11 +11,13 @@
     </encoder>
   </appender>
 
-  <root level="info">
+  <root level="trace">
     <appender-ref ref="stdout"/>
   </root>
 
   <logger level="debug" name="pks.example.modernize.domain.loan.util.math.SecantBasicTest" />
+
+  <logger level="trace" name="audit" />
 
   <include optional="true" file="conf/logback-include.xml" />
 
