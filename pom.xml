@@ -242,6 +242,27 @@
 					</rules>
 				</configuration>
 			</plugin>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<expandEmptyElements>false</expandEmptyElements>
+          <lineSeparator>\n</lineSeparator>
+					<nrOfIndentSpace>-1</nrOfIndentSpace>
+          <predefinedSortOrder>custom_1</predefinedSortOrder>
+		  		<sortModules>true</sortModules>
+		  		<spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
