@@ -111,7 +111,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot-starter.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.aspectj</groupId>
+					<artifactId>aspectjweaver</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -210,6 +216,12 @@
 					</executions>
 				<configuration>
 					<rules>
+						<banCircularDependencies/>
+						<banDuplicateClasses>
+							<findAllDuplicates>true</findAllDuplicates>
+							<scopes>compile</scopes>
+						</banDuplicateClasses>
+						<banDuplicatePomDependencyVersions/>
 						<bannedPlugins>
 							<level>WARN</level>
 								<excludes>
@@ -217,18 +229,20 @@
 								</excludes>
 							<message>Please consider using the maven-invoker-plugin (http://maven.apache.org/plugins/maven-invoker-plugin/)!</message>
 						</bannedPlugins>
+						<dependencyConvergence />
+						<enforceBytecodeVersion>
+							<maxJdkVersion>${java.version}</maxJdkVersion>
+						</enforceBytecodeVersion>
+						<reactorModuleConvergence>
+							<message>The reactor is not valid, does not meet the reactor module convergence rule.</message>
+							<ignoreModuleDependencies>false</ignoreModuleDependencies>
+						</reactorModuleConvergence>
 						<requireMavenVersion>
 							<version>3.6.0</version>
 						</requireMavenVersion>
 						<requireJavaVersion>
 							<version>1.8</version>
 						</requireJavaVersion>
-						<reactorModuleConvergence>
-							<message>The reactor is not valid</message>
-							<ignoreModuleDependencies>false</ignoreModuleDependencies>
-						</reactorModuleConvergence>
-						<banDuplicatePomDependencyVersions/>
-						<dependencyConvergence />
 						<!-- <requireProperty>
 							<property>java.version</property><regex>(?&lt;!(1\.8|11|17|21))</regex>	
 							<message>The $${java.version} is required to be defined to one of '1.8', '11', '17', or '21'.</message>
@@ -738,7 +752,7 @@
 			<properties>
 				<java.version>17</java.version>
 				<org-aspectj.version>1.9.8</org-aspectj.version>
-				<org-projectlombok.version>1.18.20</org-projectlombok.version>
+				<org-projectlombok.version>1.18.24</org-projectlombok.version>
 			</properties>
 			<build>
 				<plugins>
