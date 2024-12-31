@@ -1,32 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pks.example.modernize</groupId>
 	<artifactId>master-parent</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
-	<name>Modernize - Master Parent</name>
 	<packaging>pom</packaging>
+	<name>Modernize - Master Parent</name>
 	<description><![CDATA[
 	Modernize Demonstration:
 	]]></description>
-	
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-
-	<developers>
-		<developer/>
-	</developers>
-
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 
 	<modules>
 		<module>app-ddd-std</module>
@@ -43,7 +26,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
+
 		<aspectj-maven-plugin.verbose>false</aspectj-maven-plugin.verbose>
 
 		<!-- 
@@ -61,7 +44,6 @@
 		<!-- more normal dependencies -->
 		<org-slf4j.version>2.0.16</org-slf4j.version>
 		<javamoney-moneta.version>1.4.4</javamoney-moneta.version>
-
 
 		<!-- maven core plugin version properties -->
 		<maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
@@ -103,37 +85,37 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
 				<version>${spring-boot-starter.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>${spring-boot-starter.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.aspectj</groupId>
-					<artifactId>aspectjweaver</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
 				<version>${spring-boot-starter.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
+				<exclusions>
+					<exclusion>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-hateoas</artifactId>
 				<version>${spring-boot-starter.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-validation</artifactId>
 				<version>${spring-boot-starter.version}</version>
-		</dependency>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot-starter.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
@@ -189,8 +171,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
-	</dependencies>
+	<dependencies />
 
 	<build>
 		<pluginManagement>
@@ -199,6 +180,47 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
 					<version>${maven-enforcer-plugin.version}</version>
+					<configuration>
+						<rules>
+							<banCircularDependencies />
+							<banDuplicateClasses>
+								<findAllDuplicates>true</findAllDuplicates>
+								<scopes>compile</scopes>
+							</banDuplicateClasses>
+							<banDuplicatePomDependencyVersions />
+							<bannedPlugins>
+								<level>WARN</level>
+								<excludes>
+									<exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+								</excludes>
+								<message>Please consider using the maven-invoker-plugin (http://maven.apache.org/plugins/maven-invoker-plugin/)!</message>
+							</bannedPlugins>
+							<dependencyConvergence />
+							<enforceBytecodeVersion>
+								<maxJdkVersion>${java.version}</maxJdkVersion>
+							</enforceBytecodeVersion>
+							<reactorModuleConvergence>
+								<message>The reactor is not valid, does not meet the reactor module convergence rule.</message>
+								<ignoreModuleDependencies>false</ignoreModuleDependencies>
+							</reactorModuleConvergence>
+							<requireMavenVersion>
+								<version>3.6.0</version>
+							</requireMavenVersion>
+							<requireJavaVersion>
+								<version>1.8</version>
+							</requireJavaVersion>
+							<!-- <requireProperty>
+							<property>java.version</property><regex>(?&lt;!(1\.8|11|17|21))</regex>	
+							<message>The $${java.version} is required to be defined to one of '1.8', '11', '17', or '21'.</message>
+							<regexMessage>The $${java.version} property must be one of '1.8', '11', '17', or '21', not '${java.version}'.</regexMessage>
+						</requireProperty> -->
+							<!-- <requireEncoding>
+								<encoding>${project.build.sourceEncoding}</encoding>
+								<includes>src/main/resources/**,src/test/resources/**</includes>
+								<failFast>false</failFast>
+						</requireEncoding> -->
+						</rules>
+					</configuration>
 					<dependencies>
 						<dependency>
 							<groupId>org.codehaus.mojo</groupId>
@@ -214,343 +236,312 @@
 							</goals>
 						</execution>
 					</executions>
-				<configuration>
-					<rules>
-						<banCircularDependencies/>
-						<banDuplicateClasses>
-							<findAllDuplicates>true</findAllDuplicates>
-							<scopes>compile</scopes>
-						</banDuplicateClasses>
-						<banDuplicatePomDependencyVersions/>
-						<bannedPlugins>
-							<level>WARN</level>
-								<excludes>
-									<exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
-								</excludes>
-							<message>Please consider using the maven-invoker-plugin (http://maven.apache.org/plugins/maven-invoker-plugin/)!</message>
-						</bannedPlugins>
-						<dependencyConvergence />
-						<enforceBytecodeVersion>
-							<maxJdkVersion>${java.version}</maxJdkVersion>
-						</enforceBytecodeVersion>
-						<reactorModuleConvergence>
-							<message>The reactor is not valid, does not meet the reactor module convergence rule.</message>
-							<ignoreModuleDependencies>false</ignoreModuleDependencies>
-						</reactorModuleConvergence>
-						<requireMavenVersion>
-							<version>3.6.0</version>
-						</requireMavenVersion>
-						<requireJavaVersion>
-							<version>1.8</version>
-						</requireJavaVersion>
-						<!-- <requireProperty>
-							<property>java.version</property><regex>(?&lt;!(1\.8|11|17|21))</regex>	
-							<message>The $${java.version} is required to be defined to one of '1.8', '11', '17', or '21'.</message>
-							<regexMessage>The $${java.version} property must be one of '1.8', '11', '17', or '21', not '${java.version}'.</regexMessage>
-						</requireProperty> -->
-						<!-- <requireEncoding>
-								<encoding>${project.build.sourceEncoding}</encoding>
-								<includes>src/main/resources/**,src/test/resources/**</includes>
-								<failFast>false</failFast>
-						</requireEncoding> -->
-					</rules>
-				</configuration>
-			</plugin>
-      <plugin>
-        <groupId>com.github.ekryd.sortpom</groupId>
-        <artifactId>sortpom-maven-plugin</artifactId>
-        <version>3.3.0</version>
-        <configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<expandEmptyElements>false</expandEmptyElements>
-          <lineSeparator>\n</lineSeparator>
-					<nrOfIndentSpace>-1</nrOfIndentSpace>
-          <predefinedSortOrder>custom_1</predefinedSortOrder>
-		  		<sortModules>true</sortModules>
-		  		<spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>sort</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+				</plugin>
+				<plugin>
+					<groupId>com.github.ekryd.sortpom</groupId>
+					<artifactId>sortpom-maven-plugin</artifactId>
+					<version>3.3.0</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<expandEmptyElements>false</expandEmptyElements>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<source>${maven.compiler.release}</source>
-					<target>${maven.compiler.release}</target>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>${org-projectlombok.version}</version>
-						</path>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok-mapstruct-binding</artifactId>
-							<version>0.2.0</version>
-						</path>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${org-mapstruct.version}</version>
-					</path>
-					</annotationProcessorPaths>
-					<compilerArgs>
-						<arg>-parameters</arg>
-						<!-- <arg>-Amapstruct.verbose=true</arg> -->
-						<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" ??? -->
-					</compilerArgs>
-					<!-- <outputDirectory>${project.build.directory}/unwoven-classes</outputDirectory> --> <!-- BAD, not matching weaveDirectory below -->
-				</configuration>
-			</plugin>
+						<lineSeparator>\n</lineSeparator>
+						<nrOfIndentSpace>-1</nrOfIndentSpace>
+						<predefinedSortOrder>custom_1</predefinedSortOrder>
+						<sortModules>false</sortModules>
+						<spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>sort</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>dev.aspectj</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>${aspectj-maven-plugin.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${org-aspectj.version}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<complianceLevel>${java.version}</complianceLevel>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<showWeaveInfo>${aspectj-maven-plugin.verbose}</showWeaveInfo>
-					<verbose>${aspectj-maven-plugin.verbose}</verbose>
-					<Xlint>ignore</Xlint>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<forceAjcCompile>true</forceAjcCompile>
-					<sources/>
-					<weaveDirectories>
-						<weaveDirectory>${project.build.directory}/classes</weaveDirectory>
-						<!-- <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory> --> <!-- BAD ANYWAY ?? -->
-					</weaveDirectories>
-				</configuration>
-				<executions>
-					<execution>
-						<id>compile</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-					<!-- <execution>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${maven.compiler.release}</source>
+						<target>${maven.compiler.release}</target>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${org-projectlombok.version}</version>
+							</path>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok-mapstruct-binding</artifactId>
+								<version>0.2.0</version>
+							</path>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${org-mapstruct.version}</version>
+							</path>
+						</annotationProcessorPaths>
+						<compilerArgs>
+							<arg>-parameters</arg>
+							<!-- <arg>-Amapstruct.verbose=true</arg> -->
+							<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" ??? -->
+						</compilerArgs>
+						<!-- <outputDirectory>${project.build.directory}/unwoven-classes</outputDirectory> -->
+						<!-- BAD, not matching weaveDirectory below -->
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>dev.aspectj</groupId>
+					<artifactId>aspectj-maven-plugin</artifactId>
+					<version>${aspectj-maven-plugin.version}</version>
+					<configuration>
+						<complianceLevel>${java.version}</complianceLevel>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<showWeaveInfo>${aspectj-maven-plugin.verbose}</showWeaveInfo>
+						<verbose>${aspectj-maven-plugin.verbose}</verbose>
+						<Xlint>ignore</Xlint>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<forceAjcCompile>true</forceAjcCompile>
+						<sources />
+						<weaveDirectories>
+							<weaveDirectory>${project.build.directory}/classes</weaveDirectory>
+							<!-- <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory> -->
+							<!-- BAD ANYWAY ?? -->
+						</weaveDirectories>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.aspectj</groupId>
+							<artifactId>aspectjtools</artifactId>
+							<version>${org-aspectj.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<id>compile</id>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+							<phase>process-classes</phase>
+						</execution>
+						<!-- <execution>
 						<id>test-compile</id>
 						<phase>process-test-classes</phase>
 						<goals>
 							<goal>test-compile</goal>
 						</goals>
 					</execution> -->
-				</executions>
-			</plugin>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>${exec-maven-plugin.version}</version>
-			</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${exec-maven-plugin.version}</version>
+				</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin.version}</version>
-				<configuration>
-					<argLine>-XX:+EnableDynamicAgentLoading</argLine>
-					<!-- <argLine>-XX:-UseSplitVerifier</argLine> -->
-					<!-- <argLine>-javaagent:${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar</argLine> -->
-					<!-- <argLine>-Xset:weaveJavaxPackages=true</argLine> -->
-				</configuration>
-			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<argLine>-XX:+EnableDynamicAgentLoading</argLine>
+						<!-- <argLine>-XX:-UseSplitVerifier</argLine> -->
+						<!-- <argLine>-javaagent:${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar</argLine> -->
+						<!-- <argLine>-Xset:weaveJavaxPackages=true</argLine> -->
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven-failsafe-plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<version>${versions-maven-plugin.version}</version>
-				<configuration>
-					<allowMajorUpdates>false</allowMajorUpdates>
-					<ruleSet>
-						<ignoreVersions>
-							<ignoreVersion><type>regex</type><version>.+[-.](SNAPSHOT|M\d).*?</version></ignoreVersion>
-							<ignoreVersion><type>regex</type><version>.+[-.]([aA]lpha|[bB]eta).*?</version></ignoreVersion>
-							<ignoreVersion><type>regex</type><version>.+[-.]([rR][cC]|[mM]).*?</version></ignoreVersion>
-						</ignoreVersions>
-					</ruleSet>
-					<!--
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions-maven-plugin.version}</version>
+					<configuration>
+						<allowMajorUpdates>false</allowMajorUpdates>
+						<ruleSet>
+							<ignoreVersions>
+								<ignoreVersion>
+									<type>regex</type>
+									<version>.+[-.](SNAPSHOT|M\d).*?</version>
+								</ignoreVersion>
+								<ignoreVersion>
+									<type>regex</type>
+									<version>.+[-.]([aA]lpha|[bB]eta).*?</version>
+								</ignoreVersion>
+								<ignoreVersion>
+									<type>regex</type>
+									<version>.+[-.]([rR][cC]|[mM]).*?</version>
+								</ignoreVersion>
+							</ignoreVersions>
+						</ruleSet>
+						<!--
 					- Do not automatically update these propery values.  You'll need to
 					- do this manually as there is some dependency.  See profiles.
 					-->
-					<excludeProperties>
-						org-aspectj.version,
+						<excludeProperties>org-aspectj.version,
 						org-projectlombok.version,
-						ch-qos-logback.version
-					</excludeProperties>
-				</configuration>
-			</plugin>
+						ch-qos-logback.version</excludeProperties>
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>${docker-maven-plugin.version}</version>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.hibernate.orm.tooling</groupId>
-				<artifactId>hibernate-enhance-maven-plugin</artifactId>
-				<version>${hibernate-enhance-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>enhance</id>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-						<configuration>
-							<enableLazyInitialization>true</enableLazyInitialization>
-							<enableDirtyTracking>true</enableDirtyTracking>
-							<enableAssociationManagement>true</enableAssociationManagement>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker-maven-plugin.version}</version>
+				</plugin>
 
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-				<version>${native-graalvm-maven-plugin.version}</version>
-			</plugin>
+				<plugin>
+					<groupId>org.hibernate.orm.tooling</groupId>
+					<artifactId>hibernate-enhance-maven-plugin</artifactId>
+					<version>${hibernate-enhance-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>enhance</id>
+							<goals>
+								<goal>enhance</goal>
+							</goals>
+							<configuration>
+								<enableLazyInitialization>true</enableLazyInitialization>
+								<enableDirtyTracking>true</enableDirtyTracking>
+								<enableAssociationManagement>true</enableAssociationManagement>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot-maven-plugin.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
+				<plugin>
+					<groupId>org.graalvm.buildtools</groupId>
+					<artifactId>native-maven-plugin</artifactId>
+					<version>${native-graalvm-maven-plugin.version}</version>
+				</plugin>
 
-			<plugin>
-   				<groupId>org.liquibase</groupId>
-   				<artifactId>liquibase-maven-plugin</artifactId>
-   				<version>${liquibase-maven-plugin.version}</version>
-			</plugin>			
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-maven-plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+							</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${dependency-check-maven.version}</version>
-				<configuration>
-					<!-- suppressionFiles>${basedir}/suppressed.xml</suppressionFiles -->
-					<!-- 
+				<plugin>
+					<groupId>org.liquibase</groupId>
+					<artifactId>liquibase-maven-plugin</artifactId>
+					<version>${liquibase-maven-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.owasp</groupId>
+					<artifactId>dependency-check-maven</artifactId>
+					<version>${dependency-check-maven.version}</version>
+					<configuration>
+						<!-- suppressionFiles>${basedir}/suppressed.xml</suppressionFiles -->
+						<!-- 
 					- This server must be defined in your personal settings.xml file and the server
 					- password needs to be the nvd api key.  This is so it can be encrypted if you wish.    
 					-->
-					<nvdApiServerId>external-nist-nvd-service</nvdApiServerId>
-					<nvdApiDelay>8000</nvdApiDelay>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+						<nvdApiServerId>external-nist-nvd-service</nvdApiServerId>
+						<nvdApiDelay>8000</nvdApiDelay>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven-javadoc-plugin.version}</version>
-				<configuration>
-					<!-- <sourcepath>src/main/java:target/generated-sources</sourcepath> -->
-					<show>private</show>
-					<failOnError>false</failOnError>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>${maven-toolchains-plugin.version}</version>
-			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+					<configuration>
+						<!-- <sourcepath>src/main/java:target/generated-sources</sourcepath> -->
+						<show>private</show>
+						<failOnError>false</failOnError>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-toolchains-plugin</artifactId>
+					<version>${maven-toolchains-plugin.version}</version>
+				</plugin>
 
-			<plugin>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok-maven-plugin</artifactId>
-				<version>${lombok-maven-plugin.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.projectlombok</groupId>
-						<artifactId>lombok</artifactId>
-						<version>${org-projectlombok.version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>generate-test-sources</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-					<outputDirectory>${project.build.directory}/generated-sources/delombok</outputDirectory>
-					<addOutputDirectory>false</addOutputDirectory>
-					<verbose>false</verbose>
-				</configuration>
-			</plugin>
+				<plugin>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok-maven-plugin</artifactId>
+					<version>${lombok-maven-plugin.version}</version>
+					<configuration>
+						<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+						<outputDirectory>${project.build.directory}/generated-sources/delombok</outputDirectory>
+						<addOutputDirectory>false</addOutputDirectory>
+						<verbose>false</verbose>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org-projectlombok.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<id>generate-sources</id>
+							<goals>
+								<goal>delombok</goal>
+							</goals>
+							<phase>generate-sources</phase>
+						</execution>
+						<execution>
+							<id>generate-test-sources</id>
+							<goals>
+								<goal>delombok</goal>
+							</goals>
+							<phase>generate-test-sources</phase>
+						</execution>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>us.springett</groupId>
-				<artifactId>maven-uuid-generator</artifactId>
-				<version>${maven-uuid-generator.version}</version>
-				<executions>
-					<execution>
-						<phase>initialize</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</pluginManagement>
+				<plugin>
+					<groupId>us.springett</groupId>
+					<artifactId>maven-uuid-generator</artifactId>
+					<version>${maven-uuid-generator.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<phase>initialize</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
 		<plugins>
 			<plugin>
@@ -580,7 +571,7 @@
 		</plugins>
 	</build>
 
-<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" -->
+	<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" -->
 
 	<reporting>
 		<plugins>
@@ -625,6 +616,22 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<url />
+	<licenses>
+		<license />
+	</licenses>
+
+	<developers>
+		<developer />
+	</developers>
+
+	<scm>
+		<connection />
+		<developerConnection />
+		<url />
+		<tag />
+	</scm>
 
 	<profiles>
 		<!--
@@ -691,13 +698,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-toolchains-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>toolchain</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<toolchains>
 								<jdk>
@@ -706,6 +706,13 @@
 								</jdk>
 							</toolchains>
 						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>toolchain</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -725,13 +732,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-toolchains-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>toolchain</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<toolchains>
 								<jdk>
@@ -740,6 +740,13 @@
 								</jdk>
 							</toolchains>
 						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>toolchain</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -759,13 +766,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-toolchains-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>toolchain</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<toolchains>
 								<jdk>
@@ -774,6 +774,13 @@
 								</jdk>
 							</toolchains>
 						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>toolchain</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -793,13 +800,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-toolchains-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>toolchain</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<toolchains>
 								<jdk>
@@ -808,6 +808,13 @@
 								</jdk>
 							</toolchains>
 						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>toolchain</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>

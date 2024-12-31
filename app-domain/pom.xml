@@ -13,8 +13,7 @@
 	<name>Modernize - Application Business Domain</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-	</properties>
+	<properties />
 
 	<dependencies>
 		<dependency>
@@ -54,7 +53,7 @@
 			<artifactId>aspectjrt</artifactId>
 		</dependency>
 
-<!--
+		<!--
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -66,7 +65,7 @@
 			<artifactId>moneta</artifactId>
 			<type>pom</type>
 		</dependency>
-		
+
 		<!-- <dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
