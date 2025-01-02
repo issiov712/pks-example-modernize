@@ -21,10 +21,10 @@ def mmp = metadata.CURRENT_VERSION_MAJOR + ';' + metadata.CURRENT_VERSION_MINOR 
 def qualifiers = []
 
 if (! metadata.BASE_COMMIT_ON_HEAD || ! metadata.ANNOTATED || metadata.DIRTY ) {
-    qualifiers.add(metadata.GIT_SHA1_8)
-    if (metadata.DIRTY) {
-        qualifiers.add(metadata.DIRTY_TEXT)
-    }
+    // qualifiers.add(metadata.GIT_SHA1_8)
+    // if (metadata.DIRTY) {
+    //     qualifiers.add(metadata.DIRTY_TEXT)
+    // }
     qualifiers.add("SNAPSHOT")
 }
 
