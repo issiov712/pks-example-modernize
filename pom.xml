@@ -237,6 +237,7 @@
 						</execution>
 					</executions>
 				</plugin>
+
 				<plugin>
 					<groupId>com.github.ekryd.sortpom</groupId>
 					<artifactId>sortpom-maven-plugin</artifactId>
@@ -395,12 +396,14 @@
 							</ignoreVersions>
 						</ruleSet>
 						<!--
-					- Do not automatically update these propery values.  You'll need to
-					- do this manually as there is some dependency.  See profiles.
-					-->
-						<excludeProperties>org-aspectj.version,
-						org-projectlombok.version,
-						ch-qos-logback.version</excludeProperties>
+						- Do not automatically update these propery values.  You'll need to
+						- do this manually as there is some dependency.  See profiles.
+						-->
+						<excludeProperties>
+							org-aspectj.version,
+							org-projectlombok.version,
+							ch-qos-logback.version
+						</excludeProperties>
 					</configuration>
 				</plugin>
 
@@ -462,9 +465,9 @@
 					<configuration>
 						<!-- suppressionFiles>${basedir}/suppressed.xml</suppressionFiles -->
 						<!-- 
-					- This server must be defined in your personal settings.xml file and the server
-					- password needs to be the nvd api key.  This is so it can be encrypted if you wish.    
-					-->
+						- This server must be defined in your personal settings.xml file and the server
+						- password needs to be the nvd api key.  This is so it can be encrypted if you wish.    
+						-->
 						<nvdApiServerId>external-nist-nvd-service</nvdApiServerId>
 						<nvdApiDelay>8000</nvdApiDelay>
 					</configuration>
@@ -487,6 +490,7 @@
 						<failOnError>false</failOnError>
 					</configuration>
 				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-toolchains-plugin</artifactId>
@@ -572,8 +576,6 @@
 		</plugins>
 	</build>
 
-	<!-- add to compiler arguments "-XX:+EnableDynamicAgentLoading" -->
-
 	<reporting>
 		<plugins>
 			<plugin>
@@ -636,8 +638,8 @@
 
 	<profiles>
 		<!--
-			This profile is used by default and is optimized to support developers
-			working, deploying, and testing on their development workstation.
+		- This profile is used by default and is optimized to support developers
+		- working, deploying, and testing on their development workstation.
 		-->
 		<profile>
 			<id>default</id>
@@ -718,6 +720,7 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<id>jdk11</id>
 			<activation>
@@ -752,6 +755,7 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<id>jdk17</id>
 			<activation>
@@ -786,6 +790,7 @@
 				</plugins>
 			</build>
 		</profile>
+		
 		<profile>
 			<id>jdk21</id>
 			<activation>
