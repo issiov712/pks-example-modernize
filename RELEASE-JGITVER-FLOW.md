@@ -8,3 +8,4 @@ git tag -a 0.0.4 0.0.4-rc2^{} -m "release 0.0.4"
 git push origin
 git tag -d 0.0.4-rc2
 ```
+See: [stackoverflow - How do you rename a Git tag?](https://stackoverflow.com/questions/1028649/how-do-you-rename-a-git-tag)
