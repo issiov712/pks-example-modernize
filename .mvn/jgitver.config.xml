@@ -29,7 +29,8 @@
 
 		/*
 		 * Script output is the semi-colon ( ';' ) separated components of the desired
-		 * version string where the semi-colons will be replaced by dashes ( '-' )
+		 * version string where the semi-colons will be replaced by dots ( '.' ) and
+		 * then dashes ( '-' ) for the SemVer version modifier(s).
 		 */
 
 		print qualifiers.join(';')

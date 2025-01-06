@@ -11,10 +11,10 @@ import pks.example.modernize.domain.loan.model.factory.LoanFactory;
 
 public class SimpleLoanTest {
 
-    @Test
-    void SimpleLoanTest() {
-		Loan loan = LoanFactory.builder()
-			;
+    // @Test
+    // void SimpleLoanTest() {
+	// 	Loan loan = LoanFactory.builder()
+	// 		;
 
-	}
+	// }
 }

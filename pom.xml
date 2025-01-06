@@ -44,6 +44,7 @@
 		<!-- more normal dependencies -->
 		<org-slf4j.version>2.0.16</org-slf4j.version>
 		<javamoney-moneta.version>1.4.4</javamoney-moneta.version>
+		<org-quartz-scheduler.version>2.5.0</org-quartz-scheduler.version>
 
 		<!-- maven core plugin version properties -->
 		<maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
@@ -167,6 +168,11 @@
 				<artifactId>moneta</artifactId>
 				<version>${javamoney-moneta.version}</version>
 				<type>pom</type>
+</dependency>
+				<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>${org-quartz-scheduler.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
