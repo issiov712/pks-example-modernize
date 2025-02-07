@@ -64,7 +64,7 @@ public enum LoanPeriodType implements LoanPeriod {
     static {
         Map<String,LoanPeriodType> map = new ConcurrentHashMap<String, LoanPeriodType>();
         for (LoanPeriodType instance : LoanPeriodType.values()) {
-            map.put(instance.getName().toUpperCase(),instance);
+            map.put(instance.getCode().toUpperCase(),instance);
         }
         ENUM_MAP = Collections.unmodifiableMap(map);
     }
