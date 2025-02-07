@@ -17,6 +17,7 @@
 		<module>app-entity-springboot</module>
 		<module>tct-aspect</module>
 		<module>maven-lombok-with-aspectj-master</module>
+		<module>quick-loan</module>
 	</modules>
 
 	<properties>
@@ -337,32 +338,7 @@
 							</goals>
 							<phase>process-classes</phase>
 						</execution>
-						<!-- <execution>
-						<id>test-compile</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>test-compile</goal>
-						</goals>
-					</execution> -->
 					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>${exec-maven-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin.version}</version>
-					<configuration>
-						<argLine>-XX:+EnableDynamicAgentLoading</argLine>
-						<!-- <argLine>-XX:-UseSplitVerifier</argLine> -->
-						<!-- <argLine>-javaagent:${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar</argLine> -->
-						<!-- <argLine>-Xset:weaveJavaxPackages=true</argLine> -->
-					</configuration>
 				</plugin>
 
 				<plugin>
@@ -496,7 +472,6 @@
 						<failOnError>false</failOnError>
 					</configuration>
 				</plugin>
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-toolchains-plugin</artifactId>
