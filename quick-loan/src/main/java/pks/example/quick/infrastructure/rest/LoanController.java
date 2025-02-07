@@ -25,6 +25,10 @@ public class LoanController {
 		this.service = loanAdapter;
 	}
 
+	/*
+	 * All loans. no searchable finder, expect that to be in the grid in
+	 * this first tiny mvp-demo.
+	 */
 	@GetMapping("/")
 	public List<LoanDataObj> getAllLoans() {
 		return service.getAllLoans();
@@ -34,6 +38,8 @@ public class LoanController {
 	public LoanDataObj getLoan(@PathVariable UUID loanId) {
 		return service.getLoan(loanId);
 	}
+
+	// Just returning a big aggregate of the loan with payments to keep it simple
 
 	// @GetMapping("/{loanId}/payments")
 	// public LoanDataObj getLoanAndPayments(@PathVariable UUID loanId) {
@@ -45,31 +51,51 @@ public class LoanController {
 		return;
 	}
 
+	/*
+	 * Create a loan.  Interest is inherited from current rate.  A payment
+	 * schedule is automatically created based on the specified loan
+	 * calculation type and loan period type selected from the lookup endpoints.
+	 */
 	@PostMapping("/")
-	public String postMethodName(@RequestBody String entity) {
-		return entity;
+	public LoanDataObj postMethodName(@RequestBody LoanDataObj loan) {
+		return loan;
 	}
 
 	@PutMapping("/{loanId}")
-	public String putMethodName(@PathVariable String loanId, @RequestBody String entity) {
-		return entity;
+	public LoanDataObj putMethodName(@PathVariable String loanId, @RequestBody LoanDataObj loan) {
+		return loan;
 	}
 
+	/*
+	 * Lookup list for the period of the loan.  Monthly, Quarterly, etc.
+	 */
 	@GetMapping("/periodTypes")
 	public List<PeriodType> getPeriodTypes() {
 		return service.getAllPeriodTypes();
 	}
 
-	@GetMapping("/loanTypes")
+	/*
+	 * Lookup list for the type of loan calculation to use.
+	 */
+	@GetMapping("/calculationTypes")
 	public List<LoanType> getLoanTypes() {
 		return service.getAllLoanTypes();
 	}
 
+	/*
+	 * Get the current interest rate.  This is because a loan inherits the
+	 * currrent interest rate when calculated.  So interest rate is a 
+	 * read-only or provided data field, not directly set via a loan creation
+	 * or update.
+	 */
 	@GetMapping("/interestRate")
 	public RateDataObj getLoanInterestRate() {
 		return service.getInterestRate();
 	}
 
+	/*
+	 * Set the current interest rate to apply to all new or updated loans.
+	 */
 	@PostMapping("/interestRate")
 	public RateDataObj setLoanInterestRate(@RequestBody RateDataObj rate) {
 		service.setInterestRate(rate);

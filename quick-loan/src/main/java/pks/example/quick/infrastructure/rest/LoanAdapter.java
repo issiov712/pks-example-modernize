@@ -38,7 +38,7 @@ public class LoanAdapter {
 	List<PeriodType> getAllPeriodTypes() {
 		List<PeriodType> result = new ArrayList<PeriodType>();
 		for (LoanPeriod pt : LoanPeriodType.getPeriodTypes()) {
-			result.add(new PeriodType(pt.getName(), pt.getDescription()));
+			result.add(new PeriodType(pt.getCode(),pt.getName(), pt.getDescription()));
 		}
 		return result;
 	}
@@ -46,7 +46,7 @@ public class LoanAdapter {
 	List<LoanType> getAllLoanTypes() {
 		List<LoanType> result = new ArrayList<LoanType>();
 		for (LoanMethod lm : LoanMethodType.getAllLoanTypes()) {
-			result.add(new LoanType(lm.getName(),lm.getDescription()));
+			result.add(new LoanType(lm.getCode(),lm.getName(),lm.getDescription()));
 		}
 		return result;
 	}

@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public interface LoanPeriod {
 	Date nextIntervalDate(Date fromThisDate);
+	String getCode();
 	String getName();
 	String getDescription();
 }
