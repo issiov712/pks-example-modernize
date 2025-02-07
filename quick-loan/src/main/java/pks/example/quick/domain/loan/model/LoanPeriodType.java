@@ -3,7 +3,10 @@ package pks.example.quick.domain.loan.model;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public enum LoanPeriodType implements LoanPeriod {
 
@@ -40,19 +43,33 @@ public enum LoanPeriodType implements LoanPeriod {
 		);
 	}
 
-	private final String _code;
-	private final String _name;
-	private final String _description;
+	private final String ENUM_CODE;
+	private final String ENUM_NAME;
+	private final String ENUM_DESC;
 
 	private LoanPeriodType(final String code, final String name, final String description) {
-		this._code = code;
-		this._name = name;
-		this._description = description;
+		this.ENUM_CODE = code;
+		this.ENUM_NAME = name;
+		this.ENUM_DESC = description;
 	}
 
-	public String getCode() { return this._code; }
-	public String getName() { return this._name; }
-	public String getDescription() { return this._description; }
+	public String getCode() { return this.ENUM_CODE; }
+	public String getName() { return this.ENUM_NAME; }
+	public String getDescription() { return this.ENUM_DESC; }
 
-	public String toString() { return "LoanPeriodType('" + this._code +"')'"; }
+	public String toString() { return "LoanPeriodType('" + this.ENUM_CODE +"')'"; }
+
+	private static final Map<String,LoanPeriodType> ENUM_MAP;
+
+    static {
+        Map<String,LoanPeriodType> map = new ConcurrentHashMap<String, LoanPeriodType>();
+        for (LoanPeriodType instance : LoanPeriodType.values()) {
+            map.put(instance.getName().toUpperCase(),instance);
+        }
+        ENUM_MAP = Collections.unmodifiableMap(map);
+    }
+
+    public static LoanPeriodType fromCode(String code) {
+        return ENUM_MAP.get(code.toUpperCase());
+    }
 }
