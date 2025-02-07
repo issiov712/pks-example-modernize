@@ -12,7 +12,7 @@ import pks.example.quick.domain.loan.model.LoanPayment;
 public interface LoanDataMap {
 	public static LoanDataMap INSTANCE = Mappers.getMapper(LoanDataMap.class);
 
-	LoanDataObj mapToLoanDatObj(LoanAggregate loan);
+	LoanDataObj mapToLoanDataObj(LoanAggregate loan);
 	LoanAggregate mapToLoanAggregate(LoanDataObj loan);
 	List<PaymentDataObj> mapToPaymentDataObj(List<LoanPayment> payments);
 }

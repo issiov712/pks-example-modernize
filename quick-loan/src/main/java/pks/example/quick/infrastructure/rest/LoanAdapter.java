@@ -22,14 +22,14 @@ public class LoanAdapter {
 		List<LoanAggregate> loans = LoanManager.getAllLoans();
 		List<LoanDataObj> result = new ArrayList<LoanDataObj>();
 		for (LoanAggregate l : loans) {
-			result.add(LoanDataMap.INSTANCE.mapToLoanDatObj(l));
+			result.add(LoanDataMap.INSTANCE.mapToLoanDataObj(l));
 		}
 		return result;
 	}
 
-	// LoanAggregate getLoan(UUID pkid) {
-	// 	return new LoanAggregate();
-	// } 
+	LoanDataObj getLoan(UUID pkid) {
+		return LoanDataMap.INSTANCE.mapToLoanDataObj(LoanManager.getLoan(pkid));
+	} 
 	
 	// void newLoan(LoanAggregate loan) { }
 	// List<LoanAggregate> getAllLoans() { }
@@ -49,6 +49,15 @@ public class LoanAdapter {
 			result.add(new LoanType(lm.getName(),lm.getDescription()));
 		}
 		return result;
+	}
+
+	public RateDataObj getInterestRate() {
+		return new RateDataObj(LoanManager.getInterestRate());
+	}
+
+	public RateDataObj setInterestRate(RateDataObj rate) {
+		LoanManager.setInterestRate(rate.rate());
+		return rate;
 	}
 
 }

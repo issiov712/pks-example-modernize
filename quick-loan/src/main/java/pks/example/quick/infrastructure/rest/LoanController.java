@@ -30,10 +30,10 @@ public class LoanController {
 		return service.getAllLoans();
 	}
 
-	// @GetMapping("/{loanId}")
-	// public LoanDataObj getLoan(@PathVariable UUID loanId) {
-	// 	return new LoanDataObj();
-	// }
+	@GetMapping("/{loanId}")
+	public LoanDataObj getLoan(@PathVariable UUID loanId) {
+		return service.getLoan(loanId);
+	}
 
 	// @GetMapping("/{loanId}/payments")
 	// public LoanDataObj getLoanAndPayments(@PathVariable UUID loanId) {
@@ -64,5 +64,18 @@ public class LoanController {
 	public List<LoanType> getLoanTypes() {
 		return service.getAllLoanTypes();
 	}
+
+	@GetMapping("/interestRate")
+	public RateDataObj getLoanInterestRate() {
+		return service.getInterestRate();
+	}
+
+	@PostMapping("/interestRate")
+	public RateDataObj setLoanInterestRate(@RequestBody RateDataObj rate) {
+		service.setInterestRate(rate);
+		return rate;
+	}
+	
+	
 
 }
