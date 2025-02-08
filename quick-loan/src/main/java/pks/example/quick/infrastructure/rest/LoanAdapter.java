@@ -45,8 +45,8 @@ public class LoanAdapter {
 
 	List<LoanType> getAllLoanTypes() {
 		List<LoanType> result = new ArrayList<LoanType>();
-		for (LoanMethod lm : LoanMethodType.getAllLoanTypes()) {
-			result.add(new LoanType(lm.getCode(),lm.getName(),lm.getDescription()));
+		for (LoanMethodType lmt : LoanMethodType.getAllLoanTypes()) {
+			result.add(new LoanType(lmt.getCode(),lmt.getName(),lmt.getDescription()));
 		}
 		return result;
 	}

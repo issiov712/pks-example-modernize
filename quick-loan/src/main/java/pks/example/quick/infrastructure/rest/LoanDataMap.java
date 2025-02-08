@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import pks.example.quick.domain.loan.model.LoanAggregate;
-import pks.example.quick.domain.loan.model.LoanPayment;
+import pks.example.quick.domain.loan.model.LoanScheduleEntry;
 
 @Mapper(uses = MoneyDataMap.class)
 public interface LoanDataMap {
@@ -14,5 +14,5 @@ public interface LoanDataMap {
 
 	LoanDataObj mapToLoanDataObj(LoanAggregate loan);
 	LoanAggregate mapToLoanAggregate(LoanDataObj loan);
-	List<PaymentDataObj> mapToPaymentDataObj(List<LoanPayment> payments);
+	List<PaymentDataObj> mapToPaymentDataObj(List<LoanScheduleEntry> payments);
 }

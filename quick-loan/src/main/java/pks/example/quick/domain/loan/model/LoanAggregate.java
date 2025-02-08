@@ -18,6 +18,7 @@ public class LoanAggregate {
 	private Money amount;
 	private double rate;
 	private Date fundsDisbursementDate;
+	private Date firstStatementDate;
 	private Date firstInterestPaymentDate;
 	private Date firstPrincipalPaymentDate;
 	private Date currentMaturityDate;
@@ -25,22 +26,20 @@ public class LoanAggregate {
 	@Builder.Default private LoanMethodType loanType = LoanMethodType.SIMPLE_LEVEL_PAYMENT;
 	@Builder.Default private LoanPeriodType loanPeriodType = LoanPeriodType.MONTHLY;
 
-	private List<LoanPayment> payments = new ArrayList<LoanPayment>();
+	private List<LoanScheduleEntry> payments = new ArrayList<LoanScheduleEntry>();
 
 	// #TODO: Really need to create your own constructor to set defaults between properties and hide the payment list
 
 
-	public LoanPayment[] getPayments() {
-		return payments.toArray(new LoanPayment[0]);
+	public LoanScheduleEntry[] getLoanSchedule() {
+		return payments.toArray(new LoanScheduleEntry[0]);
 	}
 
-	public LoanAggregate priceLoan() {
-		payments.add(LoanPayment.builder()
-						.date(this.currentMaturityDate)
-						.amount(Money.of(100,"USD"))
-						.interest(Money.of(100,"USD"))
-						.principal(Money.of(100,"USD"))
-						.build());
+	public LoanAggregate calculateLoanSchedule() {
+		if (loanType != null) {
+			return loanType.calculateLoanSchedule(this);
+		}
+		
 		return this;
 	}
 

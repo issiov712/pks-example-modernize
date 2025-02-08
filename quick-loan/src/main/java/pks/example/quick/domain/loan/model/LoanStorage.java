@@ -33,18 +33,23 @@ public class LoanStorage {
 				.id(UUID.randomUUID())
 				.name("example loan")
 				.description("a first loan")
+				.loanPeriodType(LoanPeriodType.MONTHLY)
+				.loanType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
 				.amount(Money.of(37500,"USD"))
 				.fundsDisbursementDate(Date.valueOf("2023-11-21"))
-				.firstInterestPaymentDate(Date.valueOf("2023-12-12"))
-				.firstPrincipalPaymentDate(Date.valueOf("2024-12-12"))
+				.firstStatementDate(Date.valueOf("2024-01-11"))
+				.firstInterestPaymentDate(Date.valueOf("2024-07-01"))
+				.firstPrincipalPaymentDate(Date.valueOf("2025-03-01"))
 				.currentMaturityDate(Date.valueOf("2029-07-12"))
 				.finalMaturityDate(Date.valueOf("2033-07-12"))
 				.build()
-				.priceLoan());
+				.calculateLoanSchedule());
 
 		save(LoanAggregate.builder()
 				.id(UUID.randomUUID())
 				.name("example loan # 2")
+				.loanPeriodType(LoanPeriodType.MONTHLY)
+				.loanType(LoanMethodType.SIMPLE_LEVEL_PRINCIPAL)
 				.description("a second loan to check")
 				.amount(Money.of(15000,"USD"))
 				.fundsDisbursementDate(Date.valueOf("2021-01-15"))
@@ -53,6 +58,6 @@ public class LoanStorage {
 				.currentMaturityDate(Date.valueOf("2027-07-19"))
 				.finalMaturityDate(Date.valueOf("2027-07-19"))
 				.build()
-				.priceLoan());
+				.calculateLoanSchedule());
 	}
 }
