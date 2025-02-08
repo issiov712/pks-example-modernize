@@ -1,6 +1,7 @@
 package pks.example.quick.infrastructure.rest;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.javamoney.moneta.Money;
 
@@ -17,7 +18,13 @@ public class MoneyDataMap {
      * @param money The money amount as a Money type.
      * @return The amount of money in a database friendly BigDecimal type.
      */
-    public BigDecimal mapToBigDecimal(Money money) { return money == null ? Money.of(Double.valueOf(0.00), "USD").getNumberStripped() : money.getNumberStripped(); }
+    public BigDecimal mapToBigDecimal(Money money) { 
+		if (money == null) {
+			return Money.of(Double.valueOf(0.00),"USD").getNumberStripped().setScale(2,RoundingMode.HALF_UP);
+		 }
+		 
+		return money.getNumberStripped().setScale(2,RoundingMode.HALF_UP);
+	}
 
     /**
      * <p>Simple coversion between equivilent types not covered by MapStruct by default.</p>

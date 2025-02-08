@@ -19,5 +19,5 @@ public class LoanCalculationEntry {
 	Money accruedInterest;
 	Money principalPayment;
 	Money principalBalance;
-	Money capitalziedBalance;
+	Money capitalizedBalance;
 }
