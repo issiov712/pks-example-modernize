@@ -55,6 +55,16 @@ public enum LoanPhaseType {
 		This is the final payment on the loan.  Accrued period interest and all \
 		outstanding balances are due. \
 		"""
+	),
+	PHASE_G_AMORTIZATION_CALCULATION_ONLY(
+		"G",
+		"Phase G:  Additional Amortization Calculation Periods",
+		"""
+		Periods after the loan payoff date used to lower or shape the \
+		the amortization curve, lowering the payment rate by making payments \
+		as if the term of the loan was longer than it actually is.  This \
+		results in a final bullet or lump sum type payement to retire the loan. \
+		"""
 	);
 
 	private final String ENUM_CODE;

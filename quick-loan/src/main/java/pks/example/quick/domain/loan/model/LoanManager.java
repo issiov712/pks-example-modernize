@@ -19,6 +19,11 @@ public class LoanManager {
 		return storage.find(id);
 	}
 
+	public static LoanAggregate calculateLoanSchedule(UUID id) {
+		LoanAggregate loan = storage.find(id);
+		return loan.calculateLoanSchedule();
+	}
+
 
 	public void createLoan() { }
 

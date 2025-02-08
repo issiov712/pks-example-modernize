@@ -31,9 +31,9 @@ public class LoanAdapter {
 		return LoanDataMap.INSTANCE.mapToLoanDataObj(LoanManager.getLoan(pkid));
 	} 
 	
-	// void newLoan(LoanAggregate loan) { }
-	// List<LoanAggregate> getAllLoans() { }
-
+	LoanDataObj calculateLoanSchedule(UUID loanId) {
+		return LoanDataMap.INSTANCE.mapToLoanDataObj(LoanManager.calculateLoanSchedule(loanId));
+	}
 
 	List<PeriodType> getAllPeriodTypes() {
 		List<PeriodType> result = new ArrayList<PeriodType>();

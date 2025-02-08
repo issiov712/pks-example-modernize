@@ -5,17 +5,19 @@ import java.sql.Date;
 import org.javamoney.moneta.Money;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 
 
-@Value @Builder
+@Data @Builder
 public class LoanCalculationEntry {
 	LoanPhaseType loanPhase;
 	Date date;
 	double periodDiscount;
 	double cumulativeDiscount;
-	Money paymentAcount;
+	Money paymentAmount;
 	Money accruedInterest;
-	Money originalPrincipalBalance;
-	Money capitalziedInterestBalance;
+	Money principalPayment;
+	Money principalBalance;
+	Money capitalziedBalance;
 }

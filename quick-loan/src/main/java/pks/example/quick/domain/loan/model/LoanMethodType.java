@@ -9,14 +9,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 //todo: refactor to similar to LoanPeriodType
 
-public enum LoanMethodType implements LoanCalculatorReferrer {
+public enum LoanMethodType implements ScheduleCalculatorReferrer {
 	SIMPLE_LEVEL_PAYMENT (
 		"SL",
 		"Simple Level Payment Amortization",
 		"""
 		A simple loan repayment schedule where the periodic payments \
 		are the same amount. \
-		"""
+		""",
+		new CalculateSimpleLevelLoan()
 		),
 	SIMPLE_LEVEL_PRINCIPAL (
 		"SP",
@@ -26,18 +27,21 @@ public enum LoanMethodType implements LoanCalculatorReferrer {
 		principal amounts.  Therefore, the payments get smaller as you \
 		get nearer the end of the loan as the interest portion of the \
 		payment decreases. \
-		"""
+		""",
+		new CalculateSimpleLevelLoan()
 		);
 
 	private final String ENUM_CODE;
 	private static final Map<String,LoanMethodType> ENUM_CODE_MAP;
 	private final String ENUM_NAME;
 	private final String ENUM_DESC;
+	private final ScheduleCalculator ENUM_CALC;
 
-	private LoanMethodType(final String code, final String name, final String description) {
-		ENUM_CODE = code;
-		ENUM_NAME = name;
-		ENUM_DESC = description;
+	private LoanMethodType(final String code, final String name, final String description, ScheduleCalculator calculator) {
+		this.ENUM_CODE = code;
+		this.ENUM_NAME = name;
+		this.ENUM_DESC = description;
+		this.ENUM_CALC = calculator;
 	}
 
     static {
@@ -63,7 +67,7 @@ public enum LoanMethodType implements LoanCalculatorReferrer {
 		);
 	}
 
-	public LoanAggregate calculateLoanSchedule(LoanAggregate loan) {
-		return loan;
+	public List<LoanScheduleEntry> calculateLoanSchedule(LoanAggregate loan) {
+		return this.ENUM_CALC.calculateLoanSchedule(loan);
 	}
 }

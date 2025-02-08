@@ -9,6 +9,7 @@ import org.javamoney.moneta.Money;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.experimental.NonFinal;
 
 @Value @Builder
 public class LoanAggregate {
@@ -26,7 +27,7 @@ public class LoanAggregate {
 	@Builder.Default private LoanMethodType loanType = LoanMethodType.SIMPLE_LEVEL_PAYMENT;
 	@Builder.Default private LoanPeriodType loanPeriodType = LoanPeriodType.MONTHLY;
 
-	private List<LoanScheduleEntry> payments = new ArrayList<LoanScheduleEntry>();
+	@NonFinal private List<LoanScheduleEntry> payments = new ArrayList<LoanScheduleEntry>();
 
 	// #TODO: Really need to create your own constructor to set defaults between properties and hide the payment list
 
@@ -37,10 +38,16 @@ public class LoanAggregate {
 
 	public LoanAggregate calculateLoanSchedule() {
 		if (loanType != null) {
-			return loanType.calculateLoanSchedule(this);
+			payments = loanType.calculateLoanSchedule(this);
 		}
 		
 		return this;
 	}
 
+
+	/*
+	 * Value class getters return copies of object values.
+	 */
+	public Money getAmount() { return Money.from(amount); }
+	public Date getFundsDisbursementDate() { return new Date(fundsDisbursementDate.getTime()); }
 }

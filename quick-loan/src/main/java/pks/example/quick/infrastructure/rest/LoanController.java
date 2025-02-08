@@ -39,12 +39,10 @@ public class LoanController {
 		return service.getLoan(loanId);
 	}
 
-	// Just returning a big aggregate of the loan with payments to keep it simple
-
-	// @GetMapping("/{loanId}/payments")
-	// public LoanDataObj getLoanAndPayments(@PathVariable UUID loanId) {
-	// 	return new LoanDataObj();
-	// }
+	@GetMapping("/{loanId}/calculate")
+	public LoanDataObj getLoanAndPayments(@PathVariable UUID loanId) {
+		return service.calculateLoanSchedule(loanId);
+	}
 
 	@DeleteMapping("/{loanId}")
 	public void deleteLoan(@PathVariable UUID loanId) {
@@ -69,7 +67,7 @@ public class LoanController {
 	/*
 	 * Lookup list for the period of the loan.  Monthly, Quarterly, etc.
 	 */
-	@GetMapping("/periodTypes")
+	@GetMapping("/type/period")
 	public List<PeriodType> getPeriodTypes() {
 		return service.getAllPeriodTypes();
 	}
@@ -77,7 +75,7 @@ public class LoanController {
 	/*
 	 * Lookup list for the type of loan calculation to use.
 	 */
-	@GetMapping("/calculationTypes")
+	@GetMapping("/type/calculation")
 	public List<LoanType> getLoanTypes() {
 		return service.getAllLoanTypes();
 	}
@@ -88,7 +86,7 @@ public class LoanController {
 	 * read-only or provided data field, not directly set via a loan creation
 	 * or update.
 	 */
-	@GetMapping("/interestRate")
+	@GetMapping("/setting/interest-rate")
 	public RateDataObj getLoanInterestRate() {
 		return service.getInterestRate();
 	}
@@ -96,12 +94,10 @@ public class LoanController {
 	/*
 	 * Set the current interest rate to apply to all new or updated loans.
 	 */
-	@PostMapping("/interestRate")
+	@PostMapping("/setting/interest-rate")
 	public RateDataObj setLoanInterestRate(@RequestBody RateDataObj rate) {
 		service.setInterestRate(rate);
 		return rate;
 	}
-	
-	
 
 }
