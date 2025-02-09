@@ -15,6 +15,9 @@ public interface LoanDataMap {
 
 	LoanDataObj mapToLoanDataObj(LoanAggregate loan);
 
+	@Mapping(target = "payments", ignore = true)
+	LoanDataObj mapToLoanHeaderDataObj(LoanAggregate loan);
+
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "payments", ignore = true)
 	LoanAggregate mapToLoanAggregate(LoanDataObj loan);

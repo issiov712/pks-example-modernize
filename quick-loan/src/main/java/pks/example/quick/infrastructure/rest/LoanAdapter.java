@@ -24,7 +24,7 @@ public class LoanAdapter {
 		List<LoanAggregate> loans = LoanManager.getAllLoans();
 		List<LoanDataObj> result = new ArrayList<LoanDataObj>();
 		for (LoanAggregate l : loans) {
-			result.add(LoanDataMap.INSTANCE.mapToLoanDataObj(l));
+			result.add(LoanDataMap.INSTANCE.mapToLoanHeaderDataObj(l));
 		}
 		return result;
 	}
