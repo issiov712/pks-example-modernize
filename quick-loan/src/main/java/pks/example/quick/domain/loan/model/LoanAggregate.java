@@ -8,12 +8,13 @@ import java.util.UUID;
 import org.javamoney.moneta.Money;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
 import lombok.experimental.NonFinal;
 
 @Value @Builder
 public class LoanAggregate {
-	private UUID id;
+	@NonFinal @Setter private UUID id;
 	private String name;
 	private String description;
 	private Money amount;
@@ -24,10 +25,10 @@ public class LoanAggregate {
 	private Date firstPrincipalPaymentDate;
 	private Date currentMaturityDate;
 	private Date finalMaturityDate;
-	@Builder.Default private LoanMethodType loanType = LoanMethodType.SIMPLE_LEVEL_PAYMENT;
+	@Builder.Default private LoanMethodType loanMethodType = LoanMethodType.SIMPLE_LEVEL_PAYMENT;
 	@Builder.Default private LoanPeriodType loanPeriodType = LoanPeriodType.MONTHLY;
 
-	@NonFinal private List<LoanScheduleEntry> payments = new ArrayList<LoanScheduleEntry>();
+	@Builder.Default @NonFinal private List<LoanScheduleEntry> payments = new ArrayList<LoanScheduleEntry>();
 
 	// #TODO: Really need to create your own constructor to set defaults between properties and hide the payment list
 
@@ -37,8 +38,8 @@ public class LoanAggregate {
 	}
 
 	public LoanAggregate calculateLoanSchedule() {
-		if (loanType != null) {
-			payments = loanType.calculateLoanSchedule(this);
+		if (loanMethodType != null) {
+			payments = loanMethodType.calculateLoanSchedule(this);
 		}
 		
 		return this;

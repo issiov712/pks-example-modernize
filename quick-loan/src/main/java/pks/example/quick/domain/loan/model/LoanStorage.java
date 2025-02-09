@@ -13,8 +13,12 @@ public class LoanStorage {
 
 	static final Map<UUID,LoanAggregate> loans = new HashMap<UUID,LoanAggregate>();
 
-	static void save(LoanAggregate loan) {
+	static LoanAggregate save(LoanAggregate loan) {
+		if (loan.getId() == null) {
+			loan.setId(UUID.randomUUID());
+		}
 		loans.put(loan.getId(), loan);
+		return loans.get(loan.getId());
 	}
 
 	List<LoanAggregate> list() {
@@ -25,16 +29,27 @@ public class LoanStorage {
 		return loans.get(loanId);
 	}
 
-	
+	LoanAggregate update(UUID id, LoanAggregate loan) {
+		if (id == null) {
+			return null;
+		}
+		loan.setId(id);
+		loans.put(id, loan);
+		return loans.get(id);
+	}
+
+	void delete(UUID id) {
+		loans.remove(id);
+	}
 
 	static {
 
 		save(LoanAggregate.builder()
-			.id(UUID.randomUUID())
+			.id(UUID.fromString("c21ced99-bdc0-46f4-0001-990a8b3b2c72"))
 			.name("example loan")
 			.description("a first loan")
 			.loanPeriodType(LoanPeriodType.QUARTERLY)
-			.loanType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
+			.loanMethodType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
 			.rate(0.04325)
 			.amount(Money.of(12500,"USD"))
 			.fundsDisbursementDate(    Date.valueOf("2023-11-15"))
@@ -47,11 +62,11 @@ public class LoanStorage {
 			.calculateLoanSchedule());
 
 		save(LoanAggregate.builder()
-			.id(UUID.randomUUID())
+			.id(UUID.fromString("c21ced99-bdc0-46f4-0002-990a8b3b2c72"))
 			.name("example monthly loan")
 			.description("a second monthly loan")
 			.loanPeriodType(LoanPeriodType.MONTHLY)
-			.loanType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
+			.loanMethodType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
 			.rate(0.04325)
 			.amount(Money.of(12500,"USD"))
 			.fundsDisbursementDate(    Date.valueOf("2023-11-15"))
@@ -64,11 +79,11 @@ public class LoanStorage {
 			.calculateLoanSchedule());
 
 		save(LoanAggregate.builder()
-			.id(UUID.randomUUID())
+			.id(UUID.fromString("c21ced99-bdc0-46f4-0003-990a8b3b2c72"))
 			.name("complex loan")
 			.description("a very complex loan")
 			.loanPeriodType(LoanPeriodType.MONTHLY)
-			.loanType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
+			.loanMethodType(LoanMethodType.SIMPLE_LEVEL_PAYMENT)
 			.rate(0.03825)
 			.amount(Money.of(150000,"USD"))
 			.fundsDisbursementDate(    Date.valueOf("2022-08-05"))	// loan starts

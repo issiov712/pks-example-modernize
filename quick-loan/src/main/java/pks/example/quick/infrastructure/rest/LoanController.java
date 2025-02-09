@@ -45,8 +45,8 @@ public class LoanController {
 	}
 
 	@DeleteMapping("/{loanId}")
-	public void deleteLoan(@PathVariable UUID loanId) {
-		return;
+	public void deleteLoan(@PathVariable String loanId) {
+		service.deleteLoan(loanId);
 	}
 
 	/*
@@ -56,12 +56,12 @@ public class LoanController {
 	 */
 	@PostMapping("/")
 	public LoanDataObj postMethodName(@RequestBody LoanDataObj loan) {
-		return loan;
+		return service.createLoan(loan);
 	}
 
 	@PutMapping("/{loanId}")
 	public LoanDataObj putMethodName(@PathVariable String loanId, @RequestBody LoanDataObj loan) {
-		return loan;
+		return service.updateLoan(loanId, loan);
 	}
 
 	/*
@@ -75,7 +75,7 @@ public class LoanController {
 	/*
 	 * Lookup list for the type of loan calculation to use.
 	 */
-	@GetMapping("/type/calculation")
+	@GetMapping("/type/method")
 	public List<LoanType> getLoanTypes() {
 		return service.getAllLoanTypes();
 	}

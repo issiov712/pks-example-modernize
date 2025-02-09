@@ -18,6 +18,10 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 
 	public static final long MILLIS_PER_DAY = 1000 * 60 * 60 * 24;
 
+	static MonetaryAmountFormat fmt = MonetaryFormats.getAmountFormat(
+		AmountFormatQueryBuilder.of(Locale.US)
+			.set("pattern","#,##0.00").build());
+
 	private static final Logger log = LoggerFactory.getLogger(CalculateSimpleLevelLoan.class);
 
 	public List<LoanScheduleEntry> calculateLoanSchedule(LoanAggregate loan) {
@@ -129,12 +133,9 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 		 * Loop through again, calculating the other values.
 		 */
 
-		MonetaryAmountFormat fmt = MonetaryFormats.getAmountFormat(
-			AmountFormatQueryBuilder.of(Locale.US)
-				.set("pattern","#,##0.00").build());
-		Money paymentDelta = Money.of(0,"USD");
 		// Money totalPrincipalPaid;
 		// Money totalCapitalizedPaid;
+		Money paymentDelta = Money.of(0,"USD");
 
 		do {
 
@@ -211,44 +212,43 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 				}
 
 
-					if (log.isDebugEnabled()) {
-						String csv = String.format(
-							"""
-							loan calculation dump in csv format
-							"name:","{}"
-							"description:","{}"
-							"amount:","{}"
-							"disbursement date:","{}"
-							"first statement date:","{}"
-							""",
-							loan.getName(),
-							loan.getDescription(),
-							loan.getAmount(),
-							loan.getFundsDisbursementDate(),
-							loan.getFirstStatementDate()
-							);
-						csv = csv + String.format(
-							"""
-							"first interest payment date:","{}"
-							"first balance payment date:","{}"
-							"current maturity date:","{}"
-							"amortization maturity date:","{}"
-							""",
-							loan.getFirstInterestPaymentDate(),
-							loan.getFirstPrincipalPaymentDate(),
-							loan.getCurrentMaturityDate(),
-							loan.getFinalMaturityDate()
-							);
-							for (int i = 1; i < schedule.size(); i++) {
-								LoanCalculationEntry previous = schedule.get(i-1);
-								current = schedule.get(i);
-								csv = csv + "\"" + previous.getDate().toString() + "\",\"" + current.getLoanPhase().getCode() + "\",\"" + current.getDate().toString() + "\",\""
-								+ String.format("%9.5f",current.getPeriodDiscount()) + "\",\"" + String.format("%9.5f",current.getCumulativeDiscount()) + "\",\"" + String.format("%9.5f",0.0) + "\",\""
-								+ String.format("%10s",fmt.format(current.getAccruedInterest())) + "\",\"" + String.format("%10s",fmt.format(current.getPrincipalPayment())) + "\",\"" + String.format("%10s",fmt.format(payment)) + "\",\""
-								+ String.format("%10s",fmt.format(current.getPrincipalBalance())) + "\",\"" + String.format("%10s",fmt.format(current.getCapitalizedBalance())) + "\"\n";
-						}
-			
-
+			if (log.isDebugEnabled()) {
+				String csv = String.format(
+					"""
+					loan calculation dump in csv format
+					"name:","{}"
+					"description:","{}"
+					"amount:","{}"
+					"disbursement date:","{}"
+					"first statement date:","{}"
+					""",
+					loan.getName(),
+					loan.getDescription(),
+					loan.getAmount(),
+					loan.getFundsDisbursementDate(),
+					loan.getFirstStatementDate()
+					);
+				csv = csv + String.format(
+					"""
+					"first interest payment date:","{}"
+					"first balance payment date:","{}"
+					"current maturity date:","{}"
+					"amortization maturity date:","{}"
+					""",
+					loan.getFirstInterestPaymentDate(),
+					loan.getFirstPrincipalPaymentDate(),
+					loan.getCurrentMaturityDate(),
+					loan.getFinalMaturityDate()
+				);
+				for (int i = 1; i < schedule.size(); i++) {
+					LoanCalculationEntry previous = schedule.get(i-1);
+					current = schedule.get(i);
+					csv = csv + "\"" + previous.getDate().toString() + "\",\"" + current.getLoanPhase().getCode() + "\",\"" + current.getDate().toString() + "\",\""
+						+ String.format("%9.5f",current.getPeriodDiscount()) + "\",\"" + String.format("%9.5f",current.getCumulativeDiscount()) + "\",\"" + String.format("%9.5f",0.0) + "\",\""
+						+ String.format("%10s",fmt.format(current.getAccruedInterest())) + "\",\"" + String.format("%10s",fmt.format(current.getPrincipalPayment())) + "\",\"" + String.format("%10s",fmt.format(payment)) + "\",\""
+						+ String.format("%10s",fmt.format(current.getPrincipalBalance())) + "\",\"" + String.format("%10s",fmt.format(current.getCapitalizedBalance())) + "\"\n";
+				}
+				log.debug(csv);
 			}
 
 		} while (false); // finalBalance.compareTo(loan.getAmount()) != 0);
