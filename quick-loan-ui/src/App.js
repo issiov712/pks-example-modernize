@@ -1,10 +1,10 @@
-import './App.css';
+import './assets/styles/App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from'./pages/Login'
 import Dashboard from'./pages/Dashboard'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProgramCommitmentList from './pages/ProgramCommitnetList';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import ProgramCommitmentList from './pages/ProgramCommitnetList';
 
 function App() {
   return (

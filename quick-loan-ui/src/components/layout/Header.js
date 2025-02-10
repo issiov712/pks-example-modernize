@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
-import { ReactComponent as ReactLogo } from '../../logo.svg';
+import { ReactComponent as ReactLogo } from '../../assets/logo.svg';
 
 export default function Header() {
     return (
