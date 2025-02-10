@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<Login/>} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<Login/>} />
-      <Route path="/programcommitmentlist" element={<ProgramCommitmentList/>} />
+      <Route path="/loan-terms" element={<ProgramCommitmentList/>} />
     </Routes>
     <Footer/>
   </Router>
