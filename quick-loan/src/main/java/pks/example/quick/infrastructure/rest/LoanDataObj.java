@@ -11,11 +11,15 @@ public record LoanDataObj (
 	UUID id,
 	String name,
 	String description,
-	MoneyDataObj amount,
+	double rate,
+	String amount,
 	Date fundsDisbursementDate,
+	Date firstStatementDate,
 	Date firstInterestPaymentDate,
 	Date firstPrincipalPaymentDate,
 	Date currentMaturityDate,
 	Date finalMaturityDate,
+	String loanMethodType,
+	String loanPeriodType,
 	List<PaymentDataObj> payments
 	) { }

@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public record PaymentDataObj (
 	Date date,
-	MoneyDataObj amount,
-	MoneyDataObj interest,
-	MoneyDataObj principal
+	String amount,
+	String interest,
+	String principal
 ) { }

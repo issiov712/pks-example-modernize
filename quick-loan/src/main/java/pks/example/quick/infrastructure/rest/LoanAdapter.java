@@ -1,9 +1,11 @@
 package pks.example.quick.infrastructure.rest;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class LoanAdapter {
 		List<LoanAggregate> loans = LoanManager.getAllLoans();
 		List<LoanDataObj> result = new ArrayList<LoanDataObj>();
 		for (LoanAggregate l : loans) {
-			result.add(LoanDataMap.INSTANCE.mapToLoanDataObj(l));
+			result.add(LoanDataMap.INSTANCE.mapToLoanHeaderDataObj(l));
 		}
 		return result;
 	}
@@ -31,9 +33,9 @@ public class LoanAdapter {
 		return LoanDataMap.INSTANCE.mapToLoanDataObj(LoanManager.getLoan(pkid));
 	} 
 	
-	// void newLoan(LoanAggregate loan) { }
-	// List<LoanAggregate> getAllLoans() { }
-
+	LoanDataObj calculateLoanSchedule(UUID loanId) {
+		return LoanDataMap.INSTANCE.mapToLoanDataObj(LoanManager.calculateLoanSchedule(loanId));
+	}
 
 	List<PeriodType> getAllPeriodTypes() {
 		List<PeriodType> result = new ArrayList<PeriodType>();
@@ -45,10 +47,28 @@ public class LoanAdapter {
 
 	List<LoanType> getAllLoanTypes() {
 		List<LoanType> result = new ArrayList<LoanType>();
-		for (LoanMethod lm : LoanMethodType.getAllLoanTypes()) {
-			result.add(new LoanType(lm.getCode(),lm.getName(),lm.getDescription()));
+		for (LoanMethodType lmt : LoanMethodType.getAllLoanTypes()) {
+			result.add(new LoanType(lmt.getCode(),lmt.getName(),lmt.getDescription()));
 		}
 		return result;
+	}
+
+	LoanDataObj createLoan(LoanDataObj loan) {
+		LoanAggregate loanAggregate = LoanDataMap.INSTANCE.mapToLoanAggregate(loan);
+		loanAggregate = LoanManager.createLoan(loanAggregate);
+		LoanManager.calculateLoanSchedule(loanAggregate.getId());
+		return LoanDataMap.INSTANCE.mapToLoanDataObj(loanAggregate);
+	}
+
+	LoanDataObj updateLoan(String loanId, LoanDataObj loan) {
+		LoanAggregate loanAggregate = LoanDataMap.INSTANCE.mapToLoanAggregate(loan);
+		loanAggregate = LoanManager.updateLoan(UUID.fromString(loanId), loanAggregate);
+		LoanManager.calculateLoanSchedule(loanAggregate.getId());
+		return LoanDataMap.INSTANCE.mapToLoanDataObj(loanAggregate);
+	}
+
+	void deleteLoan(String loanId) {
+		LoanManager.deleteLoan(UUID.fromString(loanId));
 	}
 
 	public RateDataObj getInterestRate() {

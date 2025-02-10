@@ -8,9 +8,8 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value @Builder
-public class LoanPayment {
+public class LoanScheduleEntry {
 	private Date date;
-	private double cumulativeDiscount;
 	private Money amount;
 	private Money principal;
 	private Money interest;

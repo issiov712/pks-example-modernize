@@ -19,7 +19,21 @@ public class LoanManager {
 		return storage.find(id);
 	}
 
+	public static LoanAggregate calculateLoanSchedule(UUID id) {
+		LoanAggregate loan = storage.find(id);
+		return loan.calculateLoanSchedule();
+	}
 
-	public void createLoan() { }
+	public static LoanAggregate createLoan(LoanAggregate loan) {
+		return storage.save(loan);
+	}
+
+	public static LoanAggregate updateLoan(UUID id, LoanAggregate loan) {
+		return storage.update(id, loan);
+	}
+
+	public static void deleteLoan(UUID id) {
+		storage.delete(id);
+	}
 
 }
