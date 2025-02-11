@@ -78,27 +78,14 @@ const App = () => {
 		<div className="App">
 			<h1>Hellow KendoReact!</h1>
 			<Calendar />
-			<ExcelExport data={loans} ref={_export}>
-			<Grid 
+			<Grid
 				data={loans}
-			    sortable={{
-					allowUnsort: allowUnsort,
-					mode: multiple ? 'multiple' : 'single'
-				}}
-				sort={sort}
-				onSortChange={sortChange}
 			>
-                <GridToolbar>
-                    <Button title="Export Excel" themeColor={'primary'} type="button" onClick={excelExport}>
-                        Export to Excel
-                    </Button>
-                </GridToolbar>
 				<GridColumn field="name" />
 				<GridColumn field="description" />
 				<GridColumn field="UnitsInStock" />
 				<GridColumn field="Discontinued" />
 			</Grid>
-			</ExcelExport>
 
 			<ExcelExport data={payments} ref={_export}>
 			<Grid 
