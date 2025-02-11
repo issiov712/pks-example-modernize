@@ -14,7 +14,7 @@ export default function LoanTerms() {
     return (
         <Container>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="contained" color="primary" onClick={handleShowModal}>Add Loan</Button>
+                <Button variant="contained" color="primary" onClick={handleShowModal}>New Loan</Button>
             </Box>
             <ProgramCommitmentTable />
             <CreateLoan showModal={showModal} handleShowModal={handleShowModal} />
