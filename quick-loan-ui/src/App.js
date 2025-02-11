@@ -1,10 +1,8 @@
 import './assets/styles/App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from'./pages/Login'
-import Dashboard from'./pages/Dashboard'
-import ProgramCommitmentList from './pages/ProgramCommitnetList';
+import { BrowserRouter as Router, Routes } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import RouteComponents from './routes';
 
 function App() {
   return (
@@ -12,10 +10,7 @@ function App() {
     <Router>
       <Header/>
     <Routes>
-      <Route path="/" element={<Login/>} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/loan-terms" element={<ProgramCommitmentList/>} />
+      {RouteComponents}
     </Routes>
     <Footer/>
   </Router>

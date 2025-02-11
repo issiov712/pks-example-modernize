@@ -49,7 +49,7 @@ export default function Sidebar() {
             <ListItem button component={Link} to="/agency" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
               <ListItemText primary="Agency/Agency Contact" />
             </ListItem>
-            <ListItem button component={Link} to="/contractual-pricing-terms" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
+            <ListItem button component={Link} to="/contractual-pricing" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
               <ListItemText primary="Contractual Pricing Terms" />
             </ListItem>
             <ListItem button component={Link} to="/borrower-info" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>

@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import Container from "./Container";
 
 export default function Page({ title }) {
     return (
@@ -7,7 +8,7 @@ export default function Page({ title }) {
             {title}
         </Typography>
         <Typography variant="body1" sx={{ color: '#555' }}>
-            Welcome to your {title} page! This page is a work in progress.
+            Welcome to the {title} page! This page is a work in progress.
         </Typography>
       </Container>
     );
