@@ -97,7 +97,7 @@ export default function Sidebar() {
         </ListItem>
         <Collapse in={expandedMenu.utilMenu} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button component={Link} to="/batchjobs" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
+            <ListItem button component={Link} to="/batch-jobs" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
               <ListItemText primary="Submit Batch Jobs" />
             </ListItem>
             <ListItem button component={Link} to="/tables" sx={{ pl: 4, '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
