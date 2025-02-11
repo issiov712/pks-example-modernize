@@ -1,11 +1,15 @@
 import React from 'react';
 import { Box, Typography, Paper, TextField, Button } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const hangleLogin = () => {
+    navigate('/dashboard');
+  };
   return (
     <div>
-
-     
       <Box sx={{ mt: 4, p: 4 }}>
       {/* About Section */}
       <Box sx={{ mb: 4, textAlign: 'center', backgroundColor: '#f4f4f4', borderRadius: '12px', boxShadow: 2, p: 4 }}>
@@ -24,7 +28,7 @@ export default function Login() {
         </Typography>
         <TextField label="Username" variant="outlined" fullWidth sx={{ mb: 2 }} />
         <TextField label="Password" type="password" variant="outlined" fullWidth sx={{ mb: 2 }} />
-        <Button variant="contained" color="primary" fullWidth>
+        <Button variant="contained" color="primary" fullWidth onClick={hangleLogin}>
           Login
         </Button>
       </Paper>

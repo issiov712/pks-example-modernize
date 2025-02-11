@@ -48,10 +48,7 @@ const rows = [
 
 export default function DataGridDemo() {
   return (
-    <Box sx={{ display: 'flex', height: '100vh', backgroundColor: '#f0f0f0' }}>
-    {/* Sidebar */}
-    <Sidebar />
-    <Box sx={{ flex: 1, marginLeft: '250px', padding: 4 }}>
+    <Box sx={{ flex: 1, padding: 4 }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -67,6 +64,5 @@ export default function DataGridDemo() {
         disableRowSelectionOnClick
       />
     </Box>
-  </Box>
   );
 }
