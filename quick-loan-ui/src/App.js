@@ -9,10 +9,10 @@ function App() {
     
     <Router>
       <Header/>
-    <Routes>
-      {RouteComponents}
-    </Routes>
-    <Footer/>
+      <Routes>
+        {RouteComponents}
+      </Routes>
+      <Footer/>
   </Router>
    
   );

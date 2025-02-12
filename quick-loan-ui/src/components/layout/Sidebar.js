@@ -35,7 +35,12 @@ export default function Sidebar() {
       }}
     >
       <Divider sx={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', mb: 2 }} />
-      <List>
+      <List
+        sx={{
+          maxHeight: '100vh',
+          overflowY: 'auto',
+        }}
+      >
         {/* Admin Menu */}
         <ListItem button onClick={() => toggleMenu('adminMenu')} sx={{ padding: '12px 20px', borderRadius: '8px', '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.05)' } }}>
           <ListItemText primary="Administration" />
