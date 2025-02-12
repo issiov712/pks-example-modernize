@@ -29,12 +29,12 @@ const App = () => {
     const [multiple, setMultiple] = React.useState<boolean>(false);
 
     const sortChange = (event: GridSortChangeEvent) => {
-        setLoans(getLoans(event.sort));
+        setPayments(getPayments(event.sort));
         setSort(event.sort);
     };
 
-	const getLoans = (sort: SortDescriptor[]): LoanType[] => {
-		return orderBy(loans, sort);
+	const getPayments = (sort: SortDescriptor[]): PaymentType[] => {
+		return orderBy(payments, sort);
 	}
 
 	React.useEffect(() => {
@@ -103,10 +103,10 @@ const App = () => {
                     </Button>
                 </GridToolbar>
 
-				<GridColumn field="Date" />
-				<GridColumn field="Payment" />
-				<GridColumn field="Interest" />
-				<GridColumn field="Principal" />
+				<GridColumn field="date" />
+				<GridColumn field="amount" />
+				<GridColumn field="interest" />
+				<GridColumn field="principal" />
 			</Grid>
 			</ExcelExport>
 		</div>
