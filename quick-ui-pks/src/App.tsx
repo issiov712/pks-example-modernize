@@ -11,6 +11,8 @@ import { LoanType, PaymentType } from './gd-interfaces';
 import { AppBar, AppBarSection, AppBarSpacer } from '@progress/kendo-react-layout';
 import { menuIcon } from '@progress/kendo-svg-icons';
 import { Input } from '@progress/kendo-react-inputs';
+import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
+import Blank from './page/Blank';
 import kendoka from './kendoka.svg';
 import './App.scss';
 
@@ -58,26 +60,36 @@ const App = () => {
 
 	return(
 		<React.Fragment>
-		<AppBar>
-		<AppBarSection>
-			<Button type="button" fillMode="flat" svgIcon={menuIcon} />
-		</AppBarSection>
 
-		<AppBarSpacer style={{ width: 4 }} />
+			<BrowserRouter>
+				<Routes>
+					<Route path="/big" element={<Blank />} />
+				</Routes>
+			</BrowserRouter>
 
-		<AppBarSection>
-			<h1 className="title">Multi-Client Loan System (MCLS)</h1>
-		</AppBarSection>
+			<AppBar>
+				<AppBarSection>
+					<Button type="button" fillMode="flat" svgIcon={menuIcon} />
+				</AppBarSection>
 
-		<AppBarSpacer style={{ width: 32 }} />
+				<AppBarSpacer style={{ width: 4 }} />
 
-		<AppBarSection>
-			<Input placeholder="Search" />
-		</AppBarSection>
-	</AppBar>
-		<div className="App">
+				<AppBarSection>
+					<h2 className="title">Multi-Client Loan System (MCLS)</h2>
+				</AppBarSection>
+
+				<AppBarSpacer style={{ width: 32 }} />
+
+				<AppBarSection>
+					<Input placeholder="Search" />
+				</AppBarSection>
+			</AppBar>
+		
+		<div className="AppBob">
 			<h1>Hellow KendoReact!</h1>
+
 			<Calendar />
+
 			<Grid
 				data={loans}
 			>
@@ -109,6 +121,7 @@ const App = () => {
 				<GridColumn field="principal" />
 			</Grid>
 			</ExcelExport>
+
 		</div>
 		</React.Fragment>
   	);

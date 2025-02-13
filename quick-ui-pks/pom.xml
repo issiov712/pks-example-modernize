@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pks.example.modernize</groupId>
-	<artifactId>quick-loan-ui</artifactId>
+	<artifactId>quick-ui-pks</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Modernize - Material React User Interface</name>
+	<name>Modernize - Kendo React User Interface</name>
 	<description><![CDATA[
-	A FFB loan management system modernization demonstration that utilizes Material, ...
+	A FFB loan management system modernization demonstration that utilizes Kendo, ...
 	]]></description>
 
 	<properties>
@@ -117,8 +117,8 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v16.19.0</nodeVersion>
-							<npmVersion>8.19.3</npmVersion>
+							<nodeVersion>v22.13.1</nodeVersion>
+							<npmVersion>10.9.2</npmVersion>
 						</configuration>
 					</execution>
 					<execution>
@@ -186,12 +186,8 @@
 
 	<developers>
 	  <developer>
-			<id>fimbriano</id>
-			<name>Felicia Imbriano</name>
-		</developer>
-		<developer>
-			<id>issiov</id>
-			<name>Martin Issiov</name>
+			<id>pkshiner</id>
+			<name>Peter Shiner</name>
 		</developer>
 	</developers>
 
