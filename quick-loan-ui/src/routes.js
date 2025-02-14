@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Page from './components/layout/Page';
 import LoanTerms from './pages/LoanTerms';
+import { DropdownProvider } from './context/dropDownContext';
 
 const routes = [
   { path: '/', element: <Login /> },
@@ -15,7 +16,9 @@ const routes = [
   { path: '/contractual-pricing', element: <Page title="Contractual Pricing" /> },
   { path: '/borrower-info', element: <Page title="Borrower Information" /> },
   { path: '/borrower-commitment', element: <Page title="Borrower Commitment" /> },
-  { path: '/loan-terms', element: <LoanTerms /> },
+  { path: '/loan-terms', element:( <DropdownProvider> 
+                                      <LoanTerms /> 
+                                  </DropdownProvider> ) },
   { path: '/pricing-terms', element: <Page title="Pricing Terms" /> },
   { path: '/loan-pricing', element: <Page title="Loan Pricing" /> },
   { path: '/rate-certification', element: <Page title="Rate Certification" /> },
