@@ -4,6 +4,7 @@ import { Error } from '@progress/kendo-react-labels';
 import { Input } from '@progress/kendo-react-inputs';
 import { Button } from '@progress/kendo-react-buttons';
 import MyFloatingLabelEmailInput from '../../component/field/MyFloatingLabelEmailInput';
+import { MaskedTextBox } from '@progress/kendo-react-inputs';
 
 const emailRegex: RegExp = new RegExp(/\S+@\S+\.\S+/);
 const emailValidator = (value: string) => (emailRegex.test(value) ? '' : 'Please enter a valid email.');
@@ -16,6 +17,24 @@ const EmailInput = (fieldRenderProps: FieldRenderProps) => {
         </div>
     );
 };
+
+
+const BigNumberInput = (fieldRenderProps: FieldRenderProps) => {
+	const { validationMessage, visited, ...others } = fieldRenderProps;
+	const rules = new RegExp(/\d+/);
+	return(
+		<div>
+			<MaskedTextBox {...others} />
+			{visited && validationMessage && <Error>{validationMessage}</Error>}
+		</div>
+	)
+}
+
+const numberRegex = [
+	{
+		'check': new RegExp(/\d+/)
+	}
+];
 
 const LoanView = () => {
 
@@ -67,6 +86,15 @@ const LoanView = () => {
 							name={'fundsDisbursementDate'}
 							component={Input}
 							label={'Loan Date'}
+						/>
+					</FieldWrapper>
+					<FieldWrapper>
+						<Field 
+							name={'test'}
+							component={BigNumberInput}
+							label={'Test BigNumber'}
+							rules={numberRegex}
+							validationMessage={'This is a big NUMBER.'}
 						/>
 					</FieldWrapper>
                     </fieldset>

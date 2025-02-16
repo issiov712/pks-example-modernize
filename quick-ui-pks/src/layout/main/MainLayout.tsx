@@ -25,26 +25,20 @@ const MainLayout = () => {
 				<AppBarSpacer style={{ width: 4 }} />
 
 				<AppBarSection>
-					<h1 className="title">KendoReact</h1>
+					<h1 className="title">MCLS</h1>
 				</AppBarSection>
 
-				<AppBarSpacer style={{ width: 32 }} />
+				<AppBarSpacer />
 
 				<AppBarSection>
 					<ul>
 						<li>
 							<span>What's New</span>
 						</li>
-						<li>
-							<span>About</span>
-						</li>
-						<li>
-							<span>Contacts</span>
-						</li>
 					</ul>
 				</AppBarSection>
 
-				<AppBarSpacer />
+				<AppBarSpacer style={{ width: 16 }} />
 
 				<AppBarSection className="actions">
 					<Button type="button" fillMode="flat" svgIcon={bellIcon}>
@@ -92,7 +86,7 @@ const MainLayout = () => {
             `}</style>
         	<DrawerRouterContainer>
            		<Routes>
-					<Route path="/" element={<LoanView />} />
+					<Route path="" element={<LoanView />} />
            		</Routes>
         	</DrawerRouterContainer>
         </BrowserRouter>

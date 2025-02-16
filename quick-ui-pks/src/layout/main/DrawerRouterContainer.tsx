@@ -6,7 +6,7 @@ import { Button } from '@progress/kendo-react-buttons';
 import { inboxIcon, calendarIcon, heartIcon, linkIcon, bellIcon, menuIcon } from '@progress/kendo-svg-icons';
 
 const items = [
-    { text: 'Inbox', svgIcon: inboxIcon, selected: true, route: '' },
+    { text: 'Loans', svgIcon: inboxIcon, selected: true, route: '' },
     { separator: true },
     { text: 'Notifications', svgIcon: bellIcon, route: '/notifications' },
     { text: 'Calendar', svgIcon: calendarIcon, route: '/calendar' },
@@ -36,10 +36,6 @@ const DrawerRouterContainer = (props: { children: any; }) => {
 
     return (
         <div>
-            <div className="custom-toolbar">
-                <Button svgIcon={menuIcon} fillMode="flat" onClick={handleClick} />
-                <span className="mail-box">Mail Box</span>
-            </div>
             <Drawer
                 expanded={expanded}
                 position={'start'}
