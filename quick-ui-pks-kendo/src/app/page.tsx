@@ -24,8 +24,9 @@ export default function Home() {
       <header className={styles.header}>
         <h2>KendoReact ❤️ Next.js</h2>
         <div>
-          <Button themeColor="primary" fillMode="flat" className="k-mr-1">Home</Button>
-          <Button themeColor="primary" fillMode="flat" onClick={() => router.push('/grid')}>Grid</Button>
+			<Button themeColor="primary" fillMode="solid" onClick={() => router.push('/lending')} className="k-mr-1">Lending</Button>
+			<Button themeColor="primary" fillMode="solid" className="k-mr-1">Home</Button>
+        	<Button themeColor="primary" fillMode="solid" onClick={() => router.push('/grid')}>Grid</Button>
         </div>
       </header>
       <div className={styles.container}>
