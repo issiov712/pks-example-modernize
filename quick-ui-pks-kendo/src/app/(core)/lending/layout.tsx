@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import '@progress/kendo-theme-default/dist/all.css';
 import '@progress/kendo-theme-utils/dist/all.css';
-import '../globals.css';
+import '../../globals.css';
 
 import { AppBar, AppBarSection, AppBarSpacer, Drawer, DrawerContent } from "@progress/kendo-react-layout";
 import { Button } from '@progress/kendo-react-buttons';
@@ -38,7 +38,7 @@ export default function DemoLayout({
 				</AppBar>
 				<Drawer>
 					<DrawerContent>
-						<Button name="hi"/>
+						<Button name="hi" size="large">Hello Again</Button>
 					</DrawerContent>
 				</Drawer>
 				{children}
