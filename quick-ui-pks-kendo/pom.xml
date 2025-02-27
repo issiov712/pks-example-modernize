@@ -107,7 +107,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.15.1</version>
 				<configuration>
-					<workingDirectory>build</workingDirectory>
+					<workingDirectory>src</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
@@ -131,12 +131,12 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm run build</id>
+						<id>npnpxm next build</id>
 						<goals>
-							<goal>npm</goal>
+							<goal>npx</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>next build</arguments>
 						</configuration>
 					</execution>
 <!-- if we shift to pnpm to corepack??  just saw this and added in as a comment
