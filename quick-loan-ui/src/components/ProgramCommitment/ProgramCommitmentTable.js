@@ -47,7 +47,7 @@ const rows = [
 
 export default function DataGridDemo() {
   return (
-    <Box sx={{ flex: 1, padding: 4 }}>
+    <Box sx={{ flex: 1 }}>
       <DataGrid
         rows={rows}
         columns={columns}

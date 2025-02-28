@@ -7,7 +7,7 @@ export default function Container({ children }) {
             {/* Sidebar */}
             <Sidebar />
             {/* Main Content Container */}
-            <Box sx={{ flex: 1, marginLeft: '250px', padding: 4 }}>
+            <Box sx={{ flex: 1, padding: 4 }}>
                 {children}
             </Box>
         </Box>

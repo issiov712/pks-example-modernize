@@ -17,7 +17,7 @@ export default function LoanTerms() {
 
     return (
         <Container>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' } }>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', paddingBottom: 4 } }>
                 <Button variant="contained" color="primary" onClick={handleOpenDialog} maxWidth="xl">New Loan</Button>
             </Box>
             <ProgramCommitmentTable />
