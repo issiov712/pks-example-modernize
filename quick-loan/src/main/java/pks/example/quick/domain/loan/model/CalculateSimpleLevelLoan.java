@@ -225,7 +225,7 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 					"current maturity date: " + loan.getCurrentMaturityDate() + "\n" +
 					"amortization maturity date: " + loan.getFinalMaturityDate() + "\n" +
 					"\"previous date\",\"loan-phase\",\"current date\",\"pv-cur-discount\",\"pv-mul-discount\",\"interest\",\"principal\",\"payment\",\"balance\",\"capitalized\"\n";
-				for (int i = 1; i <= schedule.size(); i++) {
+				for (int i = 1; i < schedule.size(); i++) {
 					LoanCalculationEntry previous = schedule.get(i-1);
 					current = schedule.get(i);
 					csv = csv + "\"" + previous.getDate().toString() + "\",\"" + current.getLoanPhase().getCode() + "\",\"" + current.getDate().toString() + "\",\""

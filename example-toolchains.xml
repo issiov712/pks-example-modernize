@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolchains>
+
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>8</version>
+      <vendor>temurin</vendor>
+      <purpose></purpose>
+    </provides>
+    <configuration>
+      <jdkHome>/home/pkshiner/.tools/jdk-8</jdkHome>
+    </configuration>
+  </toolchain>
+
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>11</version>
+      <vendor>temurin</vendor>
+      <purpose></purpose>
+    </provides>
+    <configuration>
+      <jdkHome>/home/pkshiner/.tools/jdk-11</jdkHome>
+    </configuration>
+  </toolchain>
+
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>17</version>
+      <vendor>temurin</vendor>
+      <purpose></purpose>
+    </provides>
+    <configuration>
+      <jdkHome>/home/pkshiner/.tools/jdk-17</jdkHome>
+    </configuration>
+  </toolchain>
+
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>21</version>
+      <vendor>temurin</vendor>
+      <purpose></purpose>
+    </provides>
+    <configuration>
+      <jdkHome>/home/pkshiner/.tools/jdk-21</jdkHome>
+    </configuration>
+  </toolchain>
+
+</toolchains>
