@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, List, ListItem, ListItemText, Collapse, Divider, Drawer, Toolbar, Avatar, ListItemIcon } from '@mui/material';
+import { List, ListItem, ListItemText, Collapse, Divider, Drawer, Toolbar, Avatar, ListItemIcon } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
