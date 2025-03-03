@@ -10,6 +10,7 @@ const routes = [
   { path: '/', element: <Login /> },
   { path: '/login', element: <Login /> },
   { path: '/dashboard', element: <Dashboard /> },
+  { path: '/settings', element: <Page title="Settings" /> },
   // Admin Routes
   { path: '/program-commitment', element: <Page title="Program Commitment" /> },
   { path: '/agency', element: <Page title="Agency/Agency Contract" /> },

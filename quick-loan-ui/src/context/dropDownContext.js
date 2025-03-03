@@ -8,15 +8,13 @@ const fetchMockDropdownData = () =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        programs: [
-          { key: "program_alpha", value: "alpha", name: "Program Alpha" },
-          { key: "program_beta", value: "beta", name: "Program Beta" },
-          { key: "program_gamma", value: "gamma", name: "Program Gamma" }
+        methods: [
+          { key: "sl", value: "SL", name: "Simple Level Payment Amortization" },
+          { key: "sp", value: "SP", name: "Level Principal Payment Amortization" },
         ],
-        agencies: [
-          { key: "agency_x", value: "agency_x", name: "Agency X" },
-          { key: "agency_y", value: "agency_y", name: "Agency Y" },
-          { key: "agency_z", value: "agency_z", name: "Agency Z" }
+        period: [
+          { key: "monthly", value: "M", name: "Monthly" },
+          { key: "quarterly", value: "Q", name: "Quarterly" },
         ],
         categories: [
           { key: "category_finance", value: "finance", name: "Finance" },
@@ -29,7 +27,7 @@ const fetchMockDropdownData = () =>
 
 // Provider Component
 export const DropdownProvider = ({ children }) => {
-  const [dropdowns, setDropdowns] = useState({ programs: [], agencies: [], categories: [] });
+  const [dropdowns, setDropdowns] = useState({ methods: [], period: [], categories: [] });
 
   useEffect(() => {
     const fetchDropdowns = async () => {

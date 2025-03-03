@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import React from "react";
 import {
   Dialog,
   DialogActions,
@@ -8,12 +7,10 @@ import {
   Button,
   TextField,
   MenuItem,
-  InputAdornment,
   Box,
   Paper
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-
 import { useDropdown } from "../context/dropDownContext"; // Import the dropdown hook
 
 export default function CreateLoan({ open, handleClose, onSubmit }) {
@@ -24,34 +21,11 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
     reset
   } = useForm();
 
-  
-
   const { getDropdownOptions } = useDropdown(); // Use the dropdown context
 
   // Retrieve dropdown data dynamically
-  const programOptions = getDropdownOptions("programs");
-  const agencyOptions = getDropdownOptions("agencies");
-  const categoryOptions = getDropdownOptions("categories");
-
-  //Data For the Grid
-  const columns = [
-    { field: "type", headerName: "Type", width: 200 },
-    { field: "loanBalance", headerName: "Loan Balances", width: 200 }
-  ];
-
-  const rows = [
-    {id:1, type: "Type A", loanBalance: "-" },
-    {id:2, type: "Type B", loanBalance: "-" },
-    {id:3, type: "Type C", loanBalance: "-" },
-    {id:4, type: "Type D", loanBalance: "-" },
-    {id:5, type: "Type E", loanBalance: "-" },
-    {id:6, type: "Type F", loanBalance: "-" },
-    {id:7, type: "Type G", loanBalance: "-" },
-    {id:8, type: "Type H", loanBalance: "-" }
-  ];
-  //End Grid Data
-
-  
+  const methodOptions = getDropdownOptions("methods");
+  const periodOptions = getDropdownOptions("period");
 
   const handleFormSubmit = (data) => {
     onSubmit(data); // Pass form data to parent
@@ -63,261 +37,162 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xl">
       <DialogTitle>Add New Loan</DialogTitle>
       <form id="Loan" onSubmit={handleSubmit(handleFormSubmit)}>
-      <DialogContent>
-        
-      {/* Two-row layout using Flexbox */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {/* First Row */}
-              <Box sx={{ display: "flex", gap: 3, flexDirection: { xs: "column", md: "row" } }}>
-                {/* Left Side */}
-                <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
-
-        <TextField
-            label="Program"
-            select
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("program", { required: "Program is required" })}
-            error={!!errors.program}
-            helperText={errors.program ? errors.program.message : ""}
-          >
-            {programOptions.map((option) => (
-              <MenuItem key={option.key} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            label="Borrower Code"
-            select
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("borrowerCode", { required: "Program is required" })}
-            error={!!errors.program}
-            helperText={errors.program ? errors.program.message : ""}
-          >
-            {categoryOptions.map((option) => (
-              <MenuItem key={option.key} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            label="Distributaion Date"
-            type="date"
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("distributaionDate", { required: "Start date is required" })}
-            error={!!errors.startDate}
-            helperText={errors.startDate ? errors.startDate.message : ""}
-            InputLabelProps={{ shrink: true }}
-          />
-
+        <DialogContent>
+          <Box sx={{ display: "flex", gap: 3, flexDirection: { xs: "column", md: "row" } }}>
+            <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
+              <TextField
+                id="loan-name"
+                required
+                fullWidth
+                label="Loan Name"
+              />
+              <TextField
+                id="loan-description"
+                fullWidth
+                sx={{ mt: 2 }}
+                {...register("program", { required: "Loan description is required" })}
+                label="Loan Description"
+                multiline
+                minRows={2}
+                maxRows={4}
+              />
+              {/* Get from API */}
+              <TextField
+                id="loan-rate"
+                required
+                {...register("rate", { required: "Loan rate is required" })}
+                label="Loan Rate"
+                type="number"
+                sx={{ mt: 2 }}
+                slotProps={{
+                  input: {
+                    readOnly: true,
+                  },
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
+              />
+              <TextField
+                id="loan-amount"
+                required
+                {...register("program", { required: "Loan amount is required" })}
+                label="Loan Amount"
+                type="number"
+                sx={{ mt: 2, ml: 2 }}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
+              />
+              <TextField
+                id="load-method"
+                required
+                label="Method Type"
+                select
+                sx={{ mt: 2, ml: 2, width: "25%" }}
+                {...register("method", { required: "Method Type is required" })}
+                error={!!errors.method}
+                helperText={errors.method ? errors.method.message : ""}
+              >
+                {methodOptions.map((option) => (
+                  <MenuItem key={option.key} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                id="loan-period"
+                required
+                label="Period Type"
+                select
+                sx={{ mt: 2, ml: 2, width: "25%" }}
+                {...register("period", { required: "Period Type is required" })}
+                error={!!errors.period}
+                helperText={errors.period ? errors.period.message : ""}
+              >
+                {periodOptions.map((option) => (
+                  <MenuItem key={option.key} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             <TextField
-            label="Purchase Date"
-            type="date"
-            fullWidth
-            sx={{
-                mt: 2,
-                backgroundColor: "#f0f0f0",  // Light gray background
-                opacity: 0.7,                // Dimmed effect
-                pointerEvents: "none",       // Prevents interaction
-                borderRadius: "4px",
-              }}
-            {...register("purchaseDate", { required: "Start date is required" })}
-            error={!!errors.startDate}
-            helperText={errors.startDate ? errors.startDate.message : ""}
-            InputLabelProps={{ shrink: true }}
-            InputProps={{ readOnly: true }}
-          />
-
-
-        
-        <TextField
-            label="Consolidation"
-            select
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("consolidation", { required: "Program is required" })}
-            error={!!errors.program}
-            helperText={errors.program ? errors.program.message : ""}
-          >
-            {categoryOptions.map((option) => (
-              <MenuItem key={option.key} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        
-        
-          <TextField
-            label="New Cash Amount ($)"
-            type="number"
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("newCashAmount", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            }}
-          />
-
-           
-        <TextField
-            label="FundSymbol"
-            type="input"
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("fundSymbol", { required: "Commitment is required"})}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-          />
-          
-          
-    </Paper>
-
-
- {/* Right Side */}
- <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
-<TextField
-            label="Fund Symbol/Status Date"
-            type="date"
-            fullWidth
-            sx={{
-                mt: 2,
-                backgroundColor: "#f0f0f0",  // Light gray background
-                opacity: 0.7,                // Dimmed effect
-                pointerEvents: "none",       // Prevents interaction
-                borderRadius: "4px",
-              }}
-            {...register("purchaseDate", { required: "Start date is required" })}
-            error={!!errors.startDate}
-            helperText={errors.startDate ? errors.startDate.message : ""}
-            InputLabelProps={{ shrink: true }}
-            InputProps={{ readOnly: true }}
-          />
-    <TextField
-            label="Loan Id"
-            type="number"
-            fullWidth
-            sx={{
-                mt: 2,
-                backgroundColor: "#f0f0f0",  // Light gray background
-                opacity: 0.7,                // Dimmed effect
-                pointerEvents: "none",       // Prevents interaction
-                borderRadius: "4px",
-              }}
-            {...register("loanId", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{ readOnly: true }}
-            
-          />
-        <TextField
-            label="Note number"
-            type="number"
-            fullWidth
-            sx={{
-                mt: 2,
-                backgroundColor: "#f0f0f0",  // Light gray background
-                opacity: 0.7,                // Dimmed effect
-                pointerEvents: "none",       // Prevents interaction
-                borderRadius: "4px",
-              }}
-            {...register("noteNumber", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{ readOnly: true }}
-            
-          />
-
-<TextField
-            label="Face Amount"
-            type="number"
-            fullWidth
-            sx={{
-                mt: 2,
-                backgroundColor: "#f0f0f0",  // Light gray background
-                opacity: 0.7,                // Dimmed effect
-                pointerEvents: "none",       // Prevents interaction
-                borderRadius: "4px",
-              }}
-            {...register("faceAmount", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                readOnly: true
-            }}
-          />
-
-<TextField
-            label="Loan Amount ($)"
-            type="number"
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("loan Amount", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            }}
-          />
-
-        <TextField
-            label="Loan Fee Initiator"
-            select
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("loanFeeInitiator", { required: "Agency is required" })}
-            error={!!errors.agency}
-            helperText={errors.agency ? errors.agency.message : ""}
-            >
-         {agencyOptions.map((option) => (
-              <MenuItem key={option.key} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-        </TextField>
-
-          <TextField
-            label="Loan Fee Amount"
-            type="number"
-            fullWidth
-            sx={{ mt: 2 }}
-            {...register("loan feee amount", { required: "Commitment is required", valueAsNumber: true })}
-            error={!!errors.commitment}
-            helperText={errors.commitment ? errors.commitment.message : ""}
-            InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            }}
-          />
-         
-         </Paper>
-      </Box>
-{/* Second Row */}
-<Box sx={{ display: "flex", gap: 3, flexDirection: { xs: "column", md: "row" } }}>
-                <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
-                 
-                <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
-                </Paper>
-                <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
-                  <TextField
-                    label="Additional Notes"
-                    multiline
-                    rows={4}
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    {...register("notes")}
-                  />
-                </Paper>
-              </Box>
-            </Box>
-
-      </DialogContent>
+              label="Disbursement Date"
+              type="date"
+              sx={{ mt: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Statement Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Interest Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Principal Date"
+              type="date"
+              sx={{ mt: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Current Maturity Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Final Maturity Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+              {/* <TextField
+              label="Purchase Date"
+              type="date"
+              sx={{
+                  mt: 2,
+                  ml: 2,
+                  width: "25%",
+                  backgroundColor: "#f0f0f0",  // Light gray background
+                  opacity: 0.7,                // Dimmed effect
+                  pointerEvents: "none",       // Prevents interaction
+                  borderRadius: "4px",
+                }}
+              {...register("purchaseDate", { required: "Start date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{ readOnly: true }}
+            /> */}
+            </Paper>
+          </Box>
+        </DialogContent>
       </form>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">

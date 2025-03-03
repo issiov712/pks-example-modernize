@@ -205,4 +205,3 @@ export const getColumns = () => {
 
   return { columns, columnVisibilityModel };
 };
-  
