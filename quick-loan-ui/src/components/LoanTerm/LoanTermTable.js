@@ -26,16 +26,13 @@ export default function DataGridDemo() {
       });
   }, []);
 
-
-
-
   return (
     <Box sx={{ flex: 1}}>
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{
-        columns : {columnVisibilityModel},
+          columns : {columnVisibilityModel},
           pagination: {
             paginationModel: {
               pageSize: 5,

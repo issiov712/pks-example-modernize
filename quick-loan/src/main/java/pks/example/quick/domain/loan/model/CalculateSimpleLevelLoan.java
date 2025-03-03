@@ -189,7 +189,7 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 						principal = loan.getAmount().add(totalPrincipalPaid.negate());
 						payment = interest.add(previous.getCapitalizedBalance()).add(principal);
 
-						schedule = schedule.subList(0,i);
+						schedule = schedule.subList(0,i+1);
 						break;
 				
 					case PHASE_G_AMORTIZATION_CALCULATION_ONLY :
@@ -215,17 +215,17 @@ public class CalculateSimpleLevelLoan implements ScheduleCalculator {
 			if (log.isDebugEnabled()) {
 				String csv = 
 					"loan calculation dump in csv format\n" +
-					"name: " + loan.getName() + "\n" +
-					"description: " + loan.getDescription() + "\n" +
-					"amount: " + loan.getAmount() + "\n" +
-					"disbursement date: " + loan.getFundsDisbursementDate() + "\n" +
-					"first statement date: " + loan.getFirstStatementDate() + "\n" +
-					"first interest payment date: " + loan.getFirstInterestPaymentDate() + "\n" +
-					"first balance payment date: " + loan.getFirstPrincipalPaymentDate() + "\n" +
-					"current maturity date: " + loan.getCurrentMaturityDate() + "\n" +
-					"amortization maturity date: " + loan.getFinalMaturityDate() + "\n" +
+					"\"name:\",\"" + loan.getName() + "\"\n" +
+					"\"description:\",\"" + loan.getDescription() + "\"\n" +
+					"\"amount:\",\"" + loan.getAmount() + "\"\n" +
+					"\"disbursement date:\",\"" + loan.getFundsDisbursementDate() + "\"\n" +
+					"\"first statement date:\",\"" + loan.getFirstStatementDate() + "\"\n" +
+					"\"first interest payment date:\",\"" + loan.getFirstInterestPaymentDate() + "\"\n" +
+					"\"first balance payment date:\",\"" + loan.getFirstPrincipalPaymentDate() + "\"\n" +
+					"\"current maturity date:\",\"" + loan.getCurrentMaturityDate() + "\"\n" +
+					"\"amortization maturity date:\",\"" + loan.getFinalMaturityDate() + "\"\n" +
 					"\"previous date\",\"loan-phase\",\"current date\",\"pv-cur-discount\",\"pv-mul-discount\",\"interest\",\"principal\",\"payment\",\"balance\",\"capitalized\"\n";
-				for (int i = 1; i <= schedule.size(); i++) {
+				for (int i = 1; i < schedule.size(); i++) {
 					LoanCalculationEntry previous = schedule.get(i-1);
 					current = schedule.get(i);
 					csv = csv + "\"" + previous.getDate().toString() + "\",\"" + current.getLoanPhase().getCode() + "\",\"" + current.getDate().toString() + "\",\""
