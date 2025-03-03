@@ -25,8 +25,8 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
   const { getDropdownOptions } = useDropdown(); // Use the dropdown context
 
   // Retrieve dropdown data dynamically
-  const programOptions = getDropdownOptions("programs");
-  const categoryOptions = getDropdownOptions("categories");
+  const methodOptions = getDropdownOptions("methods");
+  const periodOptions = getDropdownOptions("period");
 
   const handleFormSubmit = (data) => {
     onSubmit(data); // Pass form data to parent
@@ -45,12 +45,10 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                 id="loan-name"
                 required
                 fullWidth
-                {...register("program", { required: "Loan name is required" })}
                 label="Loan Name"
               />
               <TextField
                 id="loan-description"
-                required
                 fullWidth
                 sx={{ mt: 2 }}
                 {...register("program", { required: "Loan description is required" })}
@@ -61,6 +59,8 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
               {/* Get from API */}
               <TextField
                 id="loan-rate"
+                required
+                {...register("rate", { required: "Loan rate is required" })}
                 label="Loan Rate"
                 type="number"
                 sx={{ mt: 2 }}
@@ -74,9 +74,9 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                 }}
               />
               <TextField
+                id="loan-amount"
                 required
                 {...register("program", { required: "Loan amount is required" })}
-                id="outlined-number"
                 label="Loan Amount"
                 type="number"
                 sx={{ mt: 2, ml: 2 }}
@@ -87,43 +87,92 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                 }}
               />
               <TextField
-                label="Program"
+                id="load-method"
+                required
+                label="Method Type"
                 select
                 sx={{ mt: 2, ml: 2, width: "25%" }}
-                {...register("program", { required: "Program is required" })}
-                error={!!errors.program}
-                helperText={errors.program ? errors.program.message : ""}
+                {...register("method", { required: "Method Type is required" })}
+                error={!!errors.method}
+                helperText={errors.method ? errors.method.message : ""}
               >
-                {programOptions.map((option) => (
+                {methodOptions.map((option) => (
                   <MenuItem key={option.key} value={option.value}>
                     {option.name}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
-                label="Borrower Code"
+                id="loan-period"
+                required
+                label="Period Type"
                 select
                 sx={{ mt: 2, ml: 2, width: "25%" }}
-                {...register("borrowerCode", { required: "Program is required" })}
-                error={!!errors.program}
-                helperText={errors.program ? errors.program.message : ""}
+                {...register("period", { required: "Period Type is required" })}
+                error={!!errors.period}
+                helperText={errors.period ? errors.period.message : ""}
               >
-                {categoryOptions.map((option) => (
+                {periodOptions.map((option) => (
                   <MenuItem key={option.key} value={option.value}>
                     {option.name}
                   </MenuItem>
                 ))}
               </TextField>
             <TextField
-              label="Distributaion Date"
+              label="Disbursement Date"
               type="date"
               sx={{ mt: 2, width: "25%" }}
-              {...register("distributaionDate", { required: "Start date is required" })}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
               error={!!errors.startDate}
               helperText={errors.startDate ? errors.startDate.message : ""}
               InputLabelProps={{ shrink: true }}
             />
-              <TextField
+            <TextField
+              label="Statement Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Interest Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Principal Date"
+              type="date"
+              sx={{ mt: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Current Maturity Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Final Maturity Date"
+              type="date"
+              sx={{ mt: 2, ml: 2, width: "25%" }}
+              {...register("disbursementDate", { required: "Disbursement date is required" })}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+              InputLabelProps={{ shrink: true }}
+            />
+              {/* <TextField
               label="Purchase Date"
               type="date"
               sx={{
@@ -140,7 +189,7 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
               helperText={errors.startDate ? errors.startDate.message : ""}
               InputLabelProps={{ shrink: true }}
               InputProps={{ readOnly: true }}
-            />
+            /> */}
             </Paper>
           </Box>
         </DialogContent>
