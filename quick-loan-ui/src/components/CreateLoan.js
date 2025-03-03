@@ -54,6 +54,7 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                 {...register("program", { required: "Loan description is required" })}
                 label="Loan Description"
                 multiline
+                minRows={2}
                 maxRows={4}
               />
               {/* Get from API */}
