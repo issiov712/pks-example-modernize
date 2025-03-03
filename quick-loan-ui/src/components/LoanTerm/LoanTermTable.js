@@ -4,7 +4,7 @@ import { DataGrid,GridToolbar,GridToolbarQuickFilter,GridToolbarContainer } from
 import axiosInstance from '../../api/axiosIntance';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { columns } from './columns';
+import { getColumns } from './columns';
 import CustomDataGridToolbar from '../common/CustomDataGridToolBar'
 
 
@@ -28,7 +28,7 @@ export default function DataGridDemo() {
   }, []);
 
 
-
+  const { columns, columnVisibilityModel } = getColumns();
 
   return (
     <Box sx={{ flex: 1, padding: 4 }}>
@@ -36,15 +36,17 @@ export default function DataGridDemo() {
         rows={rows}
         columns={columns}
         initialState={{
+          columns : {columnVisibilityModel},
           pagination: {
             paginationModel: {
               pageSize: 5,
             },
           },
+          
         }}
         pageSizeOptions={[5]}
         loading={loading} // loading functionality spinning icon while waiting for data
-        //checkboxSelection
+        checkboxSelection
         disableRowSelectionOnClick
         slots={{ toolbar: CustomDataGridToolbar}} 
       />
