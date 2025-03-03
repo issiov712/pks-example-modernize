@@ -4,12 +4,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import axiosInstance from '../../api/axiosInstance';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { columns } from './columns';
+import { getColumns } from './columns';
 import CustomDataGridToolbar from '../common/CustomDataGridToolBar'
 
 export default function DataGridDemo() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { columns, columnVisibilityModel } = getColumns();
+
  
   useEffect(() => {
     axiosInstance
@@ -33,6 +35,7 @@ export default function DataGridDemo() {
         rows={rows}
         columns={columns}
         initialState={{
+        columns : {columnVisibilityModel},
           pagination: {
             paginationModel: {
               pageSize: 5,
@@ -41,7 +44,7 @@ export default function DataGridDemo() {
         }}
         pageSizeOptions={[5]}
         loading={loading} // loading functionality spinning icon while waiting for data
-        //checkboxSelection
+        checkboxSelection
         disableRowSelectionOnClick
         slots={{ toolbar: CustomDataGridToolbar}} 
       />
