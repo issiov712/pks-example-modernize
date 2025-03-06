@@ -1,39 +1,33 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import axiosInstance from '../api/axiosInstance'
 
 // Create Context
 const DropdownContext = createContext();
 
-// Mock API Function (Simulates Fetching Multiple Dropdowns)
-const fetchMockDropdownData = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        methods: [
-          { key: "sl", value: "SL", name: "Simple Level Payment Amortization" },
-          { key: "sp", value: "SP", name: "Level Principal Payment Amortization" },
-        ],
-        period: [
-          { key: "monthly", value: "M", name: "Monthly" },
-          { key: "quarterly", value: "Q", name: "Quarterly" },
-        ],
-        categories: [
-          { key: "category_finance", value: "finance", name: "Finance" },
-          { key: "category_health", value: "health", name: "Health" },
-          { key: "category_education", value: "education", name: "Education" }
-        ]
-      });
-    }, 1000); // Simulate a 1-second API delay
-  });
 
 // Provider Component
 export const DropdownProvider = ({ children }) => {
-  const [dropdowns, setDropdowns] = useState({ methods: [], period: [], categories: [] });
+  const [dropdowns, setDropdowns] = useState({ methods: [], periods: []});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const data = await fetchMockDropdownData();
-        setDropdowns(data);
+        //Run all API calls in parallel using Promise.all()
+        const [periodRes, methodRes] = await Promise.all([
+          axiosInstance.get("/loan/type/period"),
+          axiosInstance.get("loan/type/method")
+        ]);
+
+        //Store results in state
+        setDropdowns({
+          methods: methodRes.data,
+          periods: periodRes.data,
+         
+        });
+
+        setLoading(false);
+        
       } catch (error) {
         console.error("Error fetching dropdown data", error);
       }
@@ -46,7 +40,7 @@ export const DropdownProvider = ({ children }) => {
   const getDropdownOptions = (key) => dropdowns[key] || [];
 
   return (
-    <DropdownContext.Provider value={{ getDropdownOptions }}>
+    <DropdownContext.Provider value={{ getDropdownOptions,loading }}>
       {children}
     </DropdownContext.Provider>
   );

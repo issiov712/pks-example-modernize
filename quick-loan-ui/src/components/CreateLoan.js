@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogActions,
@@ -10,22 +9,87 @@ import {
   Box,
   Paper
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import { useDropdown } from "../context/dropDownContext"; // Import the dropdown hook
+import { useEffect,useState,React } from "react";
+import axiosInstance from "../api/axiosInstance";
 
-export default function CreateLoan({ open, handleClose, onSubmit }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm();
+export default function CreateLoan({ open, handleClose, onSubmit,id }) {
+  {/** No need to handle form manually React-hook-form will handle but keeping it in case 
+  const [formData, setFormData] = useState({
+    id: id,
+    name: "",
+    description: "",
+    rate: "",
+    amount: "",
+    fundsDisbursementDate: "",
+    firstStatementDate: "",
+    firstInterestPaymentDate: "",
+    firstPrincipalPaymentDate: "",
+    currentMaturityDate: "",
+    finalMaturityDate: "",
+    loanMethodType: "",
+    loanPeriodType: "",
+    paymens: null
+  });
+*/}
 
   const { getDropdownOptions } = useDropdown(); // Use the dropdown context
 
   // Retrieve dropdown data dynamically
   const methodOptions = getDropdownOptions("methods");
-  const periodOptions = getDropdownOptions("period");
+  const periodOptions = getDropdownOptions("periods");
+
+  const [loading,setLoading] = useState(true)
+
+
+  useEffect(() => {
+   
+    if (!open===true)  return; 
+
+    if (!id) {
+      setLoading(false);
+      reset();
+      return;
+    }
+
+
+    axiosInstance
+      .get(`/loan/${id}`)  
+      .then((response) => {
+        reset(response.data)
+        //setFormData(response.data);
+        setLoading(false); 
+      })
+      .catch((err) => {
+        alert("Error: " + err.message);
+        setLoading(false); 
+      });
+  }, [open,id]);
+
+  
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset
+  } = useForm({mode: "onTouched"});
+
+
+
+
+/* React hook gorm will do this for us
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+*/
+
 
   const handleFormSubmit = (data) => {
     onSubmit(data); // Pass form data to parent
@@ -35,8 +99,9 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xl">
-      <DialogTitle>Add New Loan</DialogTitle>
-      <form id="Loan" onSubmit={handleSubmit(handleFormSubmit)}>
+ 
+      <DialogTitle>{ id ? `Edit Loan ${id}` : "Add New Loan"} </DialogTitle>
+      <form id="Loan" onSubmit={handleFormSubmit}>
         <DialogContent>
           <Box sx={{ display: "flex", gap: 3, flexDirection: { xs: "column", md: "row" } }}>
             <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
@@ -45,24 +110,31 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                 required
                 fullWidth
                 label="Loan Name"
+                {...register("name", { required: "Loan name is required" })} 
+                error={!!errors.name}
+                helperText={errors.name?.message}
               />
               <TextField
                 id="loan-description"
+                label="Loan Description"
+                required
                 fullWidth
                 sx={{ mt: 2 }}
-                {...register("program", { required: "Loan description is required" })}
-                label="Loan Description"
+                {...register("description", { required: "Loan description is required" })}
+                error={!!errors.description}
+                helperText={errors.description?.message}
                 multiline
                 minRows={2}
                 maxRows={4}
               />
-              {/* Get from API */}
               <TextField
                 id="loan-rate"
                 required
-                {...register("rate", { required: "Loan rate is required" })}
                 label="Loan Rate"
                 type="number"
+                {...register("rate", { required: "Loan rate is required" })}
+                error={!!errors.rate}
+                helperText={errors.rate?.message}
                 sx={{ mt: 2 }}
                 slotProps={{
                   input: {
@@ -75,10 +147,12 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
               />
               <TextField
                 id="loan-amount"
-                required
-                {...register("program", { required: "Loan amount is required" })}
                 label="Loan Amount"
-                type="number"
+                type="String"
+                required
+                {...register("amount", { required: "Loan amount is required" })}
+                error={!!errors.amount}
+                helperText={errors.amount?.message}
                 sx={{ mt: 2, ml: 2 }}
                 slotProps={{
                   inputLabel: {
@@ -86,90 +160,156 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
                   },
                 }}
               />
-              <TextField
-                id="load-method"
-                required
-                label="Method Type"
-                select
-                sx={{ mt: 2, ml: 2, width: "25%" }}
-                {...register("method", { required: "Method Type is required" })}
-                error={!!errors.method}
-                helperText={errors.method ? errors.method.message : ""}
-              >
-                {methodOptions.map((option) => (
-                  <MenuItem key={option.key} value={option.value}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                id="loan-period"
-                required
-                label="Period Type"
-                select
-                sx={{ mt: 2, ml: 2, width: "25%" }}
-                {...register("period", { required: "Period Type is required" })}
-                error={!!errors.period}
-                helperText={errors.period ? errors.period.message : ""}
-              >
-                {periodOptions.map((option) => (
-                  <MenuItem key={option.key} value={option.value}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
+        {/** 
+              <FormControl fullWidth>
+                    <InputLabel id="loan-method-label"
+                     {...register("method", { required: "Method Type is required" })}
+                    >Method type</InputLabel>
+                    <Select
+                        labelId="loan-method"
+                        id="demo-simple-select"
+                        value={formData.loanMethodType}
+                        name="loanMethodType"
+                        label="Method Type"
+                        onChange={handleDropDownChange}
+                    >
+                       {methodOptions.map((option) => (
+                          <MenuItem key={option.code} value={option.code}>
+                              {option.name}
+                          </MenuItem>
+                          ))}
+  </Select>
+</FormControl>
+
+<FormControl fullWidth>
+                    <InputLabel id="loan-period-label"
+                     {...register("Period", { required: "Loan Period Type is required" })}
+                    >Period type</InputLabel>
+                    <Select
+                        labelId="loan-Period"
+                        id="demo-simple-select"
+                        value={formData.loanPeriodType}
+                        name="loanPeriodType"
+                        label="Period Type"
+                        onChange={handleDropDownChange}
+                    >
+                       {periodOptions.map((option) => (
+                          <MenuItem key={option.code} value={option.code}>
+                              {option.name}
+                          </MenuItem>
+                          ))}
+  </Select>
+</FormControl>
+
+*/}
+
+{/**React Form Hook handles dropdowns diffrently */}
+        <Controller
+        name="loanMethodType"
+        control={control}
+        defaultValue="" 
+        rules={{ required: "Method Type is required" }} 
+        render={({ field }) => (
+          <TextField
+            {...field} //Binds value & onChange properly
+            id="load-method"
+            select
+            label="Method Type"
+            fullWidth
+            sx={{ mt: 2, ml: 2, width: "25%" }}
+            error={!!errors.loanMethodType}
+            helperText={errors.loanMethodType?.message}
+          >
+            {methodOptions.map((option) => (
+              <MenuItem key={option.code} value={option.code}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
+
+
+<Controller
+  name="loanPeriodType"
+  control={control}
+  defaultValue="" // 
+  rules={{ required: "Period Type is required" }} 
+  render={({ field }) => (
+    <TextField
+      {...field} 
+      id="loan-period"
+      select
+      label="Period Type"
+      fullWidth
+      sx={{ mt: 2, ml: 2, width: "25%" }}
+      error={!!errors.loanPeriodType} 
+      helperText={errors.loanPeriodType?.message} 
+    >
+      {periodOptions.map((option) => (
+        <MenuItem key={option.code} value={option.code}>
+          {option.name}
+        </MenuItem>
+      ))}
+    </TextField>
+  )}
+/>
+
+
+             
             <TextField
               label="Disbursement Date"
               type="date"
               sx={{ mt: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("fundsDisbursementDate", { required: "first statment date is required" })}
+              error={!!errors.fundsDisbursementDate}
+              helperText={errors.fundsDisbursementDate?.message}
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               label="Statement Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("firstStatementDate", { required: "firstStatementDate date is required" })}
+              error={!!errors.firstStatementDate}
+              helperText={errors.firstStatementDate?.message}
+        
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               label="Interest Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("firstInterestPaymentDate", { required: "Disbursement date is required" })}
+              error={!!errors.firstInterestPaymentDate}
+              helperText={errors.firstInterestPaymentDate?.message}
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               label="Principal Date"
               type="date"
               sx={{ mt: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("firstPrincipalPaymentDate", { required: "Disbursement date is required" })}
+              error={!!errors.firstPrincipalPaymentDate}
+              helperText={errors.firstPrincipalPaymentDate?.message}
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               label="Current Maturity Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("currentMaturityDate", { required: "Disbursement date is required" })}
+              error={!!errors.currentMaturityDate}
+              helperText={errors.currentMaturityDate?.message}
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               label="Final Maturity Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("disbursementDate", { required: "Disbursement date is required" })}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
+              {...register("finalMaturityDate", { required: "Disbursement date is required" })}
+              error={!!errors.finalMaturityDate}
+              helperText={errors.finalMaturityDate?.message}
               InputLabelProps={{ shrink: true }}
             />
               {/* <TextField
@@ -198,7 +338,7 @@ export default function CreateLoan({ open, handleClose, onSubmit }) {
         <Button onClick={handleClose} color="secondary">
           Cancel
         </Button>
-        <Button type="submit" form="commitment-form" variant="contained" color="primary">
+        <Button type="submit" form="Loan" variant="contained" color="primary">
           Submit
         </Button>
       </DialogActions>

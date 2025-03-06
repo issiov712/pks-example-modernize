@@ -1,11 +1,8 @@
-import { GridActionsCellItem } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
-import Tooltip from '@mui/material/Tooltip';
+
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CommonDataGridStatusActions from '../common/DataGridStatusActions';
 
 export const getColumns = () => {
     const columns = [
@@ -165,30 +162,7 @@ export const getColumns = () => {
         sortable: false,
         filterable: false,
         renderCell: (params) => (
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            {/*Green Status Checkmark */}
-            <Tooltip title="Active">
-              <CheckCircleIcon sx={{ color: 'green' }} />
-            </Tooltip>
-    
-            {/*Edit Button */}
-            <Tooltip title="Edit">
-              <GridActionsCellItem
-                icon={<EditIcon color="primary" />} 
-                label="Edit"
-                onClick={() => alert(`Edit clicked for ID: ${params.row.id}`)}
-              />
-            </Tooltip>
-    
-            {/*Delete Button */}
-            <Tooltip title="Delete">
-              <GridActionsCellItem
-                icon={<DeleteIcon color="error" />} 
-                label="Delete"
-                onClick={() => alert(`Delete clicked for ID: ${params.row.id}`)}
-              />
-            </Tooltip>
-          </Box>
+          <CommonDataGridStatusActions params={params} />
         ),
       },
 ];
