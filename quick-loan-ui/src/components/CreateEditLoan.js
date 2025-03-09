@@ -246,7 +246,7 @@ const [loading,setLoading] = useState(true)
               label="Disbursement Date"
               type="date"
               sx={{ mt: 2, width: "25%" }}
-              {...register("fundsDisbursementDate", { required: "first statment date is required" })}
+              {...register("fundsDisbursementDate", { required: "Disbursement date is required" })}
               error={!!errors.fundsDisbursementDate}
               helperText={errors.fundsDisbursementDate?.message}
               InputLabelProps={{ shrink: true }}
@@ -255,7 +255,7 @@ const [loading,setLoading] = useState(true)
               label="Statement Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("firstStatementDate", { required: "firstStatementDate date is required" })}
+              {...register("firstStatementDate", { required: "Statement date is required" })}
               error={!!errors.firstStatementDate}
               helperText={errors.firstStatementDate?.message}
         
@@ -265,7 +265,7 @@ const [loading,setLoading] = useState(true)
               label="Interest Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("firstInterestPaymentDate", { required: "Disbursement date is required" })}
+              {...register("firstInterestPaymentDate", { required: "Interest date is required" })}
               error={!!errors.firstInterestPaymentDate}
               helperText={errors.firstInterestPaymentDate?.message}
               InputLabelProps={{ shrink: true }}
@@ -274,7 +274,7 @@ const [loading,setLoading] = useState(true)
               label="Principal Date"
               type="date"
               sx={{ mt: 2, width: "25%" }}
-              {...register("firstPrincipalPaymentDate", { required: "Disbursement date is required" })}
+              {...register("firstPrincipalPaymentDate", { required: "Principal date is required" })}
               error={!!errors.firstPrincipalPaymentDate}
               helperText={errors.firstPrincipalPaymentDate?.message}
               InputLabelProps={{ shrink: true }}
@@ -283,7 +283,7 @@ const [loading,setLoading] = useState(true)
               label="Current Maturity Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("currentMaturityDate", { required: "Disbursement date is required" })}
+              {...register("currentMaturityDate", { required: "Current Maturity date is required" })}
               error={!!errors.currentMaturityDate}
               helperText={errors.currentMaturityDate?.message}
               InputLabelProps={{ shrink: true }}
@@ -292,7 +292,7 @@ const [loading,setLoading] = useState(true)
               label="Final Maturity Date"
               type="date"
               sx={{ mt: 2, ml: 2, width: "25%" }}
-              {...register("finalMaturityDate", { required: "Disbursement date is required" })}
+              {...register("finalMaturityDate", { required: "Final Maturity is required" })}
               error={!!errors.finalMaturityDate}
               helperText={errors.finalMaturityDate?.message}
               InputLabelProps={{ shrink: true }}
