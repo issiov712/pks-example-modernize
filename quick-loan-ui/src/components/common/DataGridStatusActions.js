@@ -5,10 +5,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-import CreateLoan from '../CreateLoan';
+import CreateLoan from '../CreateEditLoan';
 
 
-
+/**
+Idea is to make this reusable for every table, 
+will need some modifications to get it working with any componenet
+**/
 export default function CommonDataGridStatusActions({params}){
     const [openDialog, setOpenDialog] = useState(false);
     const [data, setData] = useState([]);

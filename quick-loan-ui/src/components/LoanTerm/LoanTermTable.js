@@ -6,11 +6,14 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { getColumns } from './columns';
 import CustomDataGridToolbar from '../common/CustomDataGridToolBar'
+import { useSnackbarContext } from "../../context/SnackbarContext"; // ✅ Import Context Hook
 
 export default function DataGridDemo() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const { columns, columnVisibilityModel } = getColumns();
+  const { refreshTrigger } = useSnackbarContext();
+
 
  
   useEffect(() => {
@@ -24,7 +27,7 @@ export default function DataGridDemo() {
         alert("Error: " + err.message);
         setLoading(false); 
       });
-  }, []);
+  }, [refreshTrigger]);
 
   return (
     <Box sx={{ flex: 1}}>
@@ -40,11 +43,11 @@ export default function DataGridDemo() {
           },
         }}
         pageSizeOptions={[5]}
-        loading={loading} // loading functionality spinning icon while waiting for data
+        loading={loading}  //// loading functionality spinning icon while waiting for data
         checkboxSelection
         disableRowSelectionOnClick
         slots={{ toolbar: CustomDataGridToolbar}} 
       />
-    </Box>
+    </Box> 
   );
 }
