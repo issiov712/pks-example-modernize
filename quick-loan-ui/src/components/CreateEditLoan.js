@@ -7,14 +7,17 @@ import {
   TextField,
   MenuItem,
   Box,
-  Paper
+  Paper,
 } from "@mui/material";
 import { useForm,Controller } from "react-hook-form";
 import { useDropdown } from "../context/dropDownContext"; // Import the dropdown hook
 import { useEffect,useState,React } from "react";
 import axiosInstance from "../api/axiosInstance";
+import {useSnackbarContext} from "../context/SnackbarContext";
+import { useInterestRate } from "../context/IntrestRateContext";
 
-export default function CreateLoan({ open, handleClose, onSubmit,id }) {
+export default function CreateEditLoan({ open, handleClose, onSuccess,id}) {
+  
   {/** No need to handle form manually React-hook-form will handle but keeping it in case 
   const [formData, setFormData] = useState({
     id: id,
@@ -34,38 +37,47 @@ export default function CreateLoan({ open, handleClose, onSubmit,id }) {
   });
 */}
 
-  const { getDropdownOptions } = useDropdown(); // Use the dropdown context
 
-  // Retrieve dropdown data dynamically
-  const methodOptions = getDropdownOptions("methods");
-  const periodOptions = getDropdownOptions("periods");
+const { setSnackbarMessage, refreshTable } = useSnackbarContext(); // ✅ Use global Snackbar and refresh function
 
-  const [loading,setLoading] = useState(true)
+const { getDropdownOptions } = useDropdown(); 
+const { interestRate} = useInterestRate();
+
+// Retrieve dropdown data dynamically
+const methodOptions = getDropdownOptions("methods");
+const periodOptions = getDropdownOptions("periods");
+
+
+  
+
+const [loading,setLoading] = useState(true)
 
 
   useEffect(() => {
    
-    if (!open===true)  return; 
+    if (!open===true) return; 
 
-    if (!id) {
+    reset(); //reset form values
+
+    if (!id) { //new mode
       setLoading(false);
-      reset();
+      //For new loans use predifined loan from api call
+      setValue("rate", interestRate); 
       return;
     }
-
-
+    //edit mode
     axiosInstance
-      .get(`/loan/${id}`)  
+      .get(`/loan/${id}`)
       .then((response) => {
         reset(response.data)
         //setFormData(response.data);
-        setLoading(false); 
+        setLoading(false);
       })
       .catch((err) => {
         alert("Error: " + err.message);
-        setLoading(false); 
+        setLoading(false);
       });
-  }, [open,id]);
+  }, [open, id]);
 
   
   
@@ -74,13 +86,14 @@ export default function CreateLoan({ open, handleClose, onSubmit,id }) {
     handleSubmit,
     formState: { errors },
     control,
+    setValue,
     reset
-  } = useForm({mode: "onTouched"});
+  } = useForm({ mode: "onTouched" });
 
 
 
 
-/* React hook gorm will do this for us
+/* React hook form will do this for us
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -91,17 +104,31 @@ export default function CreateLoan({ open, handleClose, onSubmit,id }) {
 */
 
 
-  const handleFormSubmit = (data) => {
-    onSubmit(data); // Pass form data to parent
-    reset(); // Reset the form
-    handleClose(); // Close dialog
+  const handleFormSubmit = async (data) => {
+    try {
+      if (id) {//edit mode
+        await axiosInstance.put(`/loan/${id}`, data); //await to return
+        setSnackbarMessage(`Loan updated successfully!`); //     
+      } else { //new mode
+        await axiosInstance.post("/loan/", data);
+        setSnackbarMessage(`Loan created successfully!`); // 
+      }
+
+      refreshTable(); //refresh loan table
+      handleClose(); //close dialog
+      reset(); //reset form data       
+   
+    } catch (error) {
+      console.log("Error submitting loan:", error.response?.data || error.message);
+      alert(`Failed to submit loan.` , error) ;
+    }  
   };
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xl">
  
       <DialogTitle>{ id ? `Edit Loan ${id}` : "Add New Loan"} </DialogTitle>
-      <form id="Loan" onSubmit={handleFormSubmit}>
+      <form id="Loan" onSubmit={handleSubmit(handleFormSubmit)}>
         <DialogContent>
           <Box sx={{ display: "flex", gap: 3, flexDirection: { xs: "column", md: "row" } }}>
             <Paper elevation={3} sx={{ flex: 1, padding: 3, borderRadius: 2 }}>
@@ -160,100 +187,58 @@ export default function CreateLoan({ open, handleClose, onSubmit,id }) {
                   },
                 }}
               />
-        {/** 
-              <FormControl fullWidth>
-                    <InputLabel id="loan-method-label"
-                     {...register("method", { required: "Method Type is required" })}
-                    >Method type</InputLabel>
-                    <Select
-                        labelId="loan-method"
-                        id="demo-simple-select"
-                        value={formData.loanMethodType}
-                        name="loanMethodType"
-                        label="Method Type"
-                        onChange={handleDropDownChange}
-                    >
-                       {methodOptions.map((option) => (
-                          <MenuItem key={option.code} value={option.code}>
-                              {option.name}
-                          </MenuItem>
-                          ))}
-  </Select>
-</FormControl>
 
-<FormControl fullWidth>
-                    <InputLabel id="loan-period-label"
-                     {...register("Period", { required: "Loan Period Type is required" })}
-                    >Period type</InputLabel>
-                    <Select
-                        labelId="loan-Period"
-                        id="demo-simple-select"
-                        value={formData.loanPeriodType}
-                        name="loanPeriodType"
-                        label="Period Type"
-                        onChange={handleDropDownChange}
-                    >
-                       {periodOptions.map((option) => (
-                          <MenuItem key={option.code} value={option.code}>
-                              {option.name}
-                          </MenuItem>
-                          ))}
-  </Select>
-</FormControl>
-
-*/}
-
-{/**React Form Hook handles dropdowns diffrently */}
-        <Controller
-        name="loanMethodType"
-        control={control}
-        defaultValue="" 
-        rules={{ required: "Method Type is required" }} 
-        render={({ field }) => (
-          <TextField
-            {...field} //Binds value & onChange properly
-            id="load-method"
-            select
-            label="Method Type"
-            fullWidth
-            sx={{ mt: 2, ml: 2, width: "25%" }}
-            error={!!errors.loanMethodType}
-            helperText={errors.loanMethodType?.message}
-          >
-            {methodOptions.map((option) => (
-              <MenuItem key={option.code} value={option.code}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        )}
-      />
+              {/**React Form Hook handles dropdowns diffrently */}
+              <Controller
+                name="loanMethodType"
+                control={control}
+                defaultValue=""
+                rules={{ required: "Method Type is required" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field} //Binds value & onChange properly
+                    id="load-method"
+                    select
+                    label="Method Type"
+                    fullWidth
+                    sx={{ mt: 2, ml: 2, width: "25%" }}
+                    error={!!errors.loanMethodType}
+                    helperText={errors.loanMethodType?.message}
+                  >
+                    {methodOptions.map((option) => (
+                      <MenuItem key={option.code} value={option.code}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
 
 
-<Controller
-  name="loanPeriodType"
-  control={control}
-  defaultValue="" // 
-  rules={{ required: "Period Type is required" }} 
-  render={({ field }) => (
-    <TextField
-      {...field} 
-      id="loan-period"
-      select
-      label="Period Type"
-      fullWidth
-      sx={{ mt: 2, ml: 2, width: "25%" }}
-      error={!!errors.loanPeriodType} 
-      helperText={errors.loanPeriodType?.message} 
-    >
-      {periodOptions.map((option) => (
-        <MenuItem key={option.code} value={option.code}>
-          {option.name}
-        </MenuItem>
-      ))}
-    </TextField>
-  )}
-/>
+              <Controller
+                name="loanPeriodType"
+                control={control}
+                defaultValue="" // 
+                rules={{ required: "Period Type is required" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id="loan-period"
+                    select
+                    label="Period Type"
+                    fullWidth
+                    sx={{ mt: 2, ml: 2, width: "25%" }}
+                    error={!!errors.loanPeriodType}
+                    helperText={errors.loanPeriodType?.message}
+                  >
+                    {periodOptions.map((option) => (
+                      <MenuItem key={option.code} value={option.code}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
 
 
              
