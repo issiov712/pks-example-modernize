@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import Page from './components/layout/Page';
 import LoanTerms from './pages/LoanTerms';
 import { DropdownProvider } from './context/dropDownContext';
+import { SnackbarProvider } from "./context/SnackbarContext"; 
+import { InterestRateProvider } from './context/IntrestRateContext';
 
 const routes = [
   { path: '/', element: <Login /> },
@@ -17,9 +19,15 @@ const routes = [
   { path: '/contractual-pricing', element: <Page title="Contractual Pricing" /> },
   { path: '/borrower-info', element: <Page title="Borrower Information" /> },
   { path: '/borrower-commitment', element: <Page title="Borrower Commitment" /> },
-  { path: '/loan-terms', element:( <DropdownProvider> 
+  
+  { path: '/loan-terms', element:(<SnackbarProvider> 
+                                  <InterestRateProvider>
+                                  <DropdownProvider> 
                                       <LoanTerms /> 
-                                  </DropdownProvider> ) },
+                                  </DropdownProvider>
+                                  </InterestRateProvider> 
+                                  </SnackbarProvider>
+                                   ) },
   { path: '/pricing-terms', element: <Page title="Pricing Terms" /> },
   { path: '/loan-pricing', element: <Page title="Loan Pricing" /> },
   { path: '/rate-certification', element: <Page title="Rate Certification" /> },
