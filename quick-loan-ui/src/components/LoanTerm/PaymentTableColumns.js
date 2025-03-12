@@ -31,13 +31,14 @@ export const getColumns = () => {
           align: 'left', 
         },
         {
-          field: 'Principal',
+          field: 'principal',
           headerName: 'Principal',
           type: 'number',
           flex: 0.2,
           editable: false,
           headerAlign: 'left', //nubers are alligned to right by default
           align: 'left', 
+          valueFormatter: (params) => `$${params}`, //Add the $ symbol
         },
       ]
 }
