@@ -368,6 +368,7 @@ const [loading,setLoading] = useState(true)
                         pageSize: 5,
                       },
                     },
+                    density: "compact"
                   }}
                   pageSizeOptions={[15]}
                   checkboxSelection
