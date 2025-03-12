@@ -29,6 +29,7 @@ export const getColumns = () => {
           editable: false,
           headerAlign: 'left', //nubers are alligned to right by default
           align: 'left', 
+          valueFormatter: (params) => `$${params}`, //Add the $ symbol
         },
         {
           field: 'principal',
