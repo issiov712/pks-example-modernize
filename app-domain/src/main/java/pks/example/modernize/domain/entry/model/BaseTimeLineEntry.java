@@ -1,0 +1,17 @@
+package pks.example.modernize.domain.entry.model;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+@ToString(callSuper = true) @SuperBuilder
+@Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class BaseTimeLineEntry extends AbstractTimeLineEntry {
+
+	// BaseTimeLineEntry(BaseTimeLineEntryItem item) {
+	// 	super(item);
+	// }
+
+}

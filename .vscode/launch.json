@@ -4,42 +4,56 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}",
-        },
-        {
-            "type": "java",
-            "name": "prod w/ psql",
-            "request": "launch",
-            "mainClass": "pks.example.modernize.entity.EntityApplication",
-            "projectName": "app-entity",
-        },
-        {
-            "type": "java",
-            "name": "work w/ h2db",
-            "request": "launch",
-            "mainClass": "pks.example.modernize.entity.EntityApplication",
-            "projectName": "app-entity",
-            "vmArgs": [ "-Dspring.profiles.active=work-h2db" ],
-        },
-        {
-            "type": "java",
-            "name": "test w/ h2db",
-            "request": "launch",
-            "mainClass": "pks.example.modernize.entity.EntityApplication",
-            "projectName": "app-entity",
-            "vmArgs": [ "-Dspring.profiles.active=test-h2db" ],
-        },
-        {
-            "type": "java",
-            "name": "test w/ psql",
-            "request": "launch",
-            "mainClass": "pks.example.modernize.entity.EntityApplication",
-            "projectName": "app-entity",
-            "vmArgs": [ "-Dspring.profiles.active=test-psql" ],
-        }        
-    ]
+		{
+			"type": "java",
+			"name": "StandardDomainApplication",
+			"request": "launch",
+			"mainClass": "pks.example.quick.main.StandardDomainApplication",
+			"projectName": ""
+		},
+		{
+			"type": "java",
+			"name": "Current File",
+			"request": "launch",
+			"mainClass": "${file}"
+		},
+		{
+			"type": "java",
+			"name": "prod w/ psql",
+			"request": "launch",
+			"mainClass": "pks.example.modernize.entity.EntityApplication",
+			"projectName": "app-entity"
+		},
+		{
+			"type": "java",
+			"name": "work w/ h2db",
+			"request": "launch",
+			"mainClass": "pks.example.modernize.entity.EntityApplication",
+			"projectName": "app-entity",
+			"vmArgs": [
+				"-Dspring.profiles.active=work-h2db"
+			]
+		},
+		{
+			"type": "java",
+			"name": "test w/ h2db",
+			"request": "launch",
+			"mainClass": "pks.example.modernize.entity.EntityApplication",
+			"projectName": "app-entity",
+			"vmArgs": [
+				"-Dspring.profiles.active=test-h2db"
+			]
+		},
+		{
+			"type": "java",
+			"name": "test w/ psql",
+			"request": "launch",
+			"mainClass": "pks.example.modernize.entity.EntityApplication",
+			"projectName": "app-entity",
+			"vmArgs": [
+				"-Dspring.profiles.active=test-psql"
+			]
+			""
+		}
+	]
 }

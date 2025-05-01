@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pks.example.modernize</groupId>
+	<artifactId>quick-ui-pks</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Modernize - Kendo React User Interface</name>
+	<description><![CDATA[
+	A FFB loan management system modernization demonstration that utilizes Kendo, ...
+	]]></description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>21</java.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>3.4.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>pks.example</groupId>
+			<artifactId>quick-loan</artifactId>	
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<defaultGoal>package</defaultGoal>
+		
+		<plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>false</addClasspath>
+							<mainClass>pks.example.quick.main.StandardDomainApplication</mainClass>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${project.url}</url>
+              <key>value</key>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>shade packaging</id>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<phase>package</phase>
+				</execution>
+			</executions>
+      </plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.15.1</version>
+				<configuration>
+					<workingDirectory>src</workingDirectory>
+					<installDirectory>target</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v22.13.1</nodeVersion>
+							<npmVersion>10.9.2</npmVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npnpxm next build</id>
+						<goals>
+							<goal>npx</goal>
+						</goals>
+						<configuration>
+							<arguments>next build</arguments>
+						</configuration>
+					</execution>
+<!-- if we shift to pnpm to corepack??  just saw this and added in as a comment
+<execution>
+    <id>install</id>
+    <goals>
+        <goal>corepack</goal>
+    </goals>
+    <configuration>
+        <arguments>pnpm install</arguments>
+    </configuration>
+</execution>
+<execution>
+    <id>build</id>
+    <goals>
+        <goal>corepack</goal>
+    </goals>
+    <configuration>
+        <arguments>pnpm build</arguments>
+    </configuration>
+</execution>
+-->					
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/classes/public">
+									<fileset dir="${project.basedir}/build" />
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<developers>
+	  <developer>
+			<id>pkshiner</id>
+			<name>Peter Shiner</name>
+		</developer>
+	</developers>
+
+</project>

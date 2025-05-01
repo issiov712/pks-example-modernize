@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pks.example.modernize</groupId>
+  <artifactId>quick-loan-ui</artifactId>
+  <name>Modernize - Material React User Interface</name>
+  <version>0.0.5-SNAPSHOT</version>
+  <description>A FFB loan management system modernization demonstration that utilizes Material, ...</description>
+  <developers>
+    <developer>
+      <id>fimbriano</id>
+      <name>Felicia Imbriano</name>
+    </developer>
+    <developer>
+      <id>issiov</id>
+      <name>Martin Issiov</name>
+    </developer>
+  </developers>
+  <build>
+    <defaultGoal>package</defaultGoal>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>false</addClasspath>
+              <mainClass>pks.example.quick.main.StandardDomainApplication</mainClass>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${project.url}</url>
+              <key>value</key>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>shade packaging</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.15.1</version>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+              <nodeVersion>v16.19.0</nodeVersion>
+              <npmVersion>8.19.3</npmVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm run build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <workingDirectory>build</workingDirectory>
+          <installDirectory>target</installDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <copy>
+                  <fileset />
+                </copy>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>21</java.version>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+</project>

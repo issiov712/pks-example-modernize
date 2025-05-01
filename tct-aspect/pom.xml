@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>pks.example.modernize</groupId>
+		<artifactId>master-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<name>Example: Try for Aspect, Mapstruct, &amp; Lombok</name>
+	<groupId>pks.example.aspect</groupId>
+	<artifactId>tech-demo</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<description><![CDATA[
+	]]></description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+			</plugin>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.jupiter</groupId>
+						<artifactId>junit-jupiter-engine</artifactId>
+						<version>${org-junit-jupiter.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<argLine>-XX:+EnableDynamicAgentLoading</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
